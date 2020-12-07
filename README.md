@@ -25,7 +25,7 @@ The data required to render the design is under `public/api/cars.json` folder. Y
 ]
 ```
 
-The product owner is telling you that you can generate the links to the learn and shop pages of earch car by concatating the `id` of the car to the learn (`/learn/`) and shop (`/shop/`) urls.
+The product owner is telling you that you can generate the links to the learn and shop pages of each car by concatating the `id` of the car to the learn (`/learn/`) and shop (`/shop/`) urls.
 
 Two extra SVG icons are also provided by our designer which are stored under `docs` folder.
 

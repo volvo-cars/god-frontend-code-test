@@ -1,0 +1,48 @@
+.nextBtn,
+.prevBtn {
+	height: 50px;
+	width: 50px;
+	margin: 5px;
+}
+.nextBtn img,
+.prevBtn img {
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+}
+.prevBtn {
+	transform: rotate(180deg);
+}
+.btnContainer {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: flex-end;
+}
+
+.swiperStyle :global(.swiper-pagination-bullet) {
+	background: #6f6c6c;
+	height: 10px;
+	width: 10px;
+}
+
+.swiperStyle :global(.swiper-pagination-bullet-active) {
+	background: #141414;
+}
+
+.swiperStyle
+	:global(.swiper-horizontal
+		> .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction) {
+	bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+	.swiperStyle :global(.swiper-pagination) {
+		display: none;
+	}
+}
+
+.selectBtn {
+	margin: 20px 0 !important;
+	text-transform: capitalize;
+}

@@ -3,16 +3,16 @@
 
 import React from "react";
 import { Flex, Spacer, Text, View } from "vcc-ui";
-import CommonLink from "../Link/Link";
-import { CarInfo } from "../../util/types";
+import CommonLink from "./CommonLink";
+import { ICarInfo } from "../util/types";
 
-export const ListItem: React.FC<CarInfo> = ({
+export const ListItem: React.FC<ICarInfo> = ({
   id,
   modelName,
   bodyType,
   modelType,
   imageUrl
-}: CarInfo) => {
+}: ICarInfo) => {
   return (
     <View extend={{ margin: "12px" }}>
       <View>
@@ -62,10 +62,10 @@ export const ListItem: React.FC<CarInfo> = ({
             justifyContent: "center"
           }}
         >
-          <CommonLink text="LEARN" id={id} />
+          <CommonLink text="LEARN" id={id} label="item-link-learn" />
           <Spacer />
           <Spacer />
-          <CommonLink text="SHOP" id={id} />
+          <CommonLink text="SHOP" id={id} label="item-link-shop" />
         </Flex>
       </View>
     </View>

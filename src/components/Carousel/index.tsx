@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Flex } from "vcc-ui";
 import Carousel from "react-multi-carousel";
+import { View } from "vcc-ui";
 import "react-multi-carousel/lib/styles.css";
-import ListItem from "./ListItem";
-import { CarInfo } from "../../util/types";
-import SearchBar from "../SearchBar/SearchBar";
+import ListItem from "../ListItem";
+import { ICarInfo } from "../../util/types";
+import SelectFilter from "../SelectFilter";
 
 const CarList: React.FC = () => {
   const responsive = {
@@ -26,7 +26,7 @@ const CarList: React.FC = () => {
   };
   const [carList, setCarList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(1024);
 
   useEffect(() => {
     window.addEventListener("resize", function (event) {
@@ -44,17 +44,27 @@ const CarList: React.FC = () => {
   }, []);
   return (
     <>
-      <SearchBar itemList={carList} setFilteredList={setFilteredList} />
+      <View extend={{
+        paddingLeft: "33%",
+        paddingRight: "33%",
+      }}>
+        <SelectFilter
+          id="carousel-search"
+          itemList={carList}
+          setFilteredList={setFilteredList}
+        />
+      </View>
+
       <Carousel
         responsive={responsive}
-        showDots={windowWidth < 1024 ? true : false}
+        showDots={windowWidth < 1023 ? true : false}
         renderDotsOutside
         partialVisible
         removeArrowOnDeviceType={["mobile", "tablet"]}
         autoPlay={false}
       >
         {filteredList &&
-          filteredList.map((car: CarInfo) => {
+          filteredList.map((car: ICarInfo) => {
             return (
               <ListItem
                 key={car.id}
@@ -63,6 +73,7 @@ const CarList: React.FC = () => {
                 bodyType={car.bodyType}
                 modelType={car.modelType}
                 imageUrl={car.imageUrl}
+                label={`car-${car.modelName}`}
               />
             );
           })}

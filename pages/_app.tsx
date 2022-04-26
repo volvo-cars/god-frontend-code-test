@@ -1,4 +1,3 @@
-import { ListItem } from "../src/components/Carousel/ListItem";
 import "../public/css/styles.css";
 import React from "react";
 import { StyleProvider, ThemePicker } from "vcc-ui";

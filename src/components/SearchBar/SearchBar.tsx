@@ -1,38 +1,42 @@
 import React from "react";
 import { Flex, TextInput, View } from "vcc-ui";
+import { CarInfo, SearchList } from "../../util/types";
 
-const SearchBar = (props) => {
+const SearchBar: React.FC<SearchList> = ({ itemList, setFilteredList }) => {
   const [value, setValue] = React.useState("");
-  const searchCar = (query) => {
+  const searchCar = (value: string) => {
     const result =
-      props.itemList &&
-      props.itemList.filter((post) => {
-        if (query === "") {
+      itemList &&
+      itemList.filter((item: CarInfo) => {
+        if (value === "") {
           setValue("");
-          return post;
-        } else if (post.modelName.toLowerCase().includes(query.toLowerCase())) {
-          setValue(query);
-          return post;
+          return item;
+        } else if (item.bodyType.toLowerCase().includes(value.toLowerCase())) {
+          setValue(value);
+          return item;
         } else {
-          setValue(query);
+          setValue(value);
         }
       });
-    props.setFilteredList(result);
+    setFilteredList(result);
   };
   return (
     <Flex
       extend={{
-        alignItems: "center"
+        alignItems: "center",
+        padding: "50px 0px 50px 0px"
       }}
     >
-      <TextInput
-        value={value}
-        placeholder="Search here"
-        type="text"
-        onChange={(e) => {
-          searchCar(e.target.value);
-        }}
-      />
+      <View extend={{ width: "400px" }}>
+        <TextInput
+          value={value}
+          placeholder="Search"
+          type="text"
+          onChange={(e) => {
+            searchCar(e.target.value);
+          }}
+        />
+      </View>
     </Flex>
   );
 };

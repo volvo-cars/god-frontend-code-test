@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "vcc-ui";
-import CarList from "../src/components/Carousel/CarList";
+import CarList from "../src/components/Carousel";
 
 const Home: React.FC = () => {
   return (

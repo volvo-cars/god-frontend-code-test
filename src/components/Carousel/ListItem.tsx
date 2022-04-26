@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import { kill } from "process";
-import React, { useEffect } from "react";
-import { Flex, Icon, Spacer, Text, View } from "vcc-ui";
-import Chevron from "../../docs/chevron-small.svg"; // TODO: Get from SVG
-import { CarInfo } from "./types";
+
+import React from "react";
+import { Flex, Spacer, Text, View } from "vcc-ui";
+import CommonLink from "../Link/Link";
+import { CarInfo } from "../../util/types";
 
 export const ListItem: React.FC<CarInfo> = ({
+  id,
   modelName,
   bodyType,
   modelType,
@@ -50,7 +52,7 @@ export const ListItem: React.FC<CarInfo> = ({
           margin: "24px 0px 24px 0px"
         }}
       >
-        <img src={imageUrl} alt="S60-recharge"></img>
+        <img src={imageUrl} alt={modelName}></img>
       </Flex>
       <View>
         <Flex
@@ -60,22 +62,10 @@ export const ListItem: React.FC<CarInfo> = ({
             justifyContent: "center"
           }}
         >
-          <Text
-            extend={{ marginLeft: "10px", color: "steelblue" }}
-            variant="hillary"
-            subStyle={"emphasis"}
-          >
-            LEARN
-          </Text>
-          <Icon type="navigation-chevronforward-24" color="action" />
-          <Text
-            extend={{ marginLeft: "10px", color: "steelblue" }}
-            variant="hillary"
-            subStyle={"emphasis"}
-          >
-            SHOP
-          </Text>
-          <Icon type="navigation-chevronforward-24" color="action" />
+          <CommonLink text="LEARN" id={id} />
+          <Spacer />
+          <Spacer />
+          <CommonLink text="SHOP" id={id} />
         </Flex>
       </View>
     </View>

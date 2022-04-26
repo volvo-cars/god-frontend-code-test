@@ -3,7 +3,7 @@ import { Flex } from "vcc-ui";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ListItem from "./ListItem";
-import { CarInfo } from "./types";
+import { CarInfo } from "../../util/types";
 import SearchBar from "../SearchBar/SearchBar";
 
 const CarList: React.FC = () => {
@@ -47,6 +47,7 @@ const CarList: React.FC = () => {
         renderDotsOutside
         partialVisible
         removeArrowOnDeviceType={["mobile", "tablet"]}
+        autoPlay={false}
       >
         {filteredList && filteredList.map((car: CarInfo) => {
           return (

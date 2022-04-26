@@ -13,7 +13,9 @@
     "next": "^11.1.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "typescript": "~4.4.3"
+    "react-multi-carousel": "^2.8.0",
+    "typescript": "~4.4.3",
+    "vcc-ui": "^2.26.1"
   },
   "scripts": {
     "dev": "next dev",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "file-loader": "^6.2.0"
   }
 }

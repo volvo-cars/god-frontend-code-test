@@ -25,10 +25,14 @@ const CarList: React.FC = () => {
     }
   };
   const [carList, setCarList] = useState([]);
-  const [filteredList, setFilteredList] = useState([])
+  const [filteredList, setFilteredList] = useState([]);
   const [windowWidth, setWindowWidth] = useState(0);
+
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", function (event) {
+      setWindowWidth(document.body.clientWidth);
+    });
+
     fetch("/api/cars")
       .then((res) => {
         return res.json();
@@ -49,18 +53,19 @@ const CarList: React.FC = () => {
         removeArrowOnDeviceType={["mobile", "tablet"]}
         autoPlay={false}
       >
-        {filteredList && filteredList.map((car: CarInfo) => {
-          return (
-            <ListItem
-              key={car.id}
-              id={car.id}
-              modelName={car.modelName}
-              bodyType={car.bodyType}
-              modelType={car.modelType}
-              imageUrl={car.imageUrl}
-            />
-          );
-        })}
+        {filteredList &&
+          filteredList.map((car: CarInfo) => {
+            return (
+              <ListItem
+                key={car.id}
+                id={car.id}
+                modelName={car.modelName}
+                bodyType={car.bodyType}
+                modelType={car.modelType}
+                imageUrl={car.imageUrl}
+              />
+            );
+          })}
       </Carousel>
     </>
   );

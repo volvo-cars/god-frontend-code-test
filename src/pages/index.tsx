@@ -17,7 +17,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
   const [filteredVehicles, setFilteredVehicles] =
     useState<Array<VehicleInformation>>(vehicles);
 
-  const maxWidth =
+  const maxContentWidth =
     Dimensions.vehicleCardWidth * 4 + Dimensions.vehicleCardSpacing * 3;
 
   function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
@@ -36,7 +36,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
   return (
     <Block
       extend={{
-        maxWidth: maxWidth,
+        maxWidth: maxContentWidth,
         marginLeft: "auto",
         marginRight: "auto",
         paddingBottom: 40,

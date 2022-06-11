@@ -22,6 +22,10 @@ export default function PaginationDots({
 }: PaginationDotsProps) {
   const theme = useTheme();
 
+  if (total === 0) {
+    return null;
+  }
+
   return (
     <View extend={{ flexDirection: "row" }} spacing={1}>
       {[...new Array(total)].map((_, i) => {

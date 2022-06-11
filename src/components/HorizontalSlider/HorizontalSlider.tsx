@@ -10,6 +10,7 @@ import { ChevronCircled } from "@Components/svgs";
 import PaginationDots from "@Components/PaginationDots";
 import { Dimensions } from "@Constants/dimensions";
 import useDebounce from "@Hooks/useDebounce";
+import useScreenResize from "@Hooks/useScreenResize";
 
 interface HorizontalSliderProps {
   children: ReactNode;
@@ -35,6 +36,9 @@ export default function HorizontalSlider({
   useEffect(() => {
     calVisibleIndex();
   }, [childrenCount]);
+
+  // If the screen size changed, calculator the visibleIndex again
+  useScreenResize(calVisibleIndex);
 
   function calVisibleIndex() {
     const container = sliderRef.current;

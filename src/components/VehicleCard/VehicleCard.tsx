@@ -1,9 +1,9 @@
 import React from "react";
 import { VehicleInformation } from "@Models/vehicleInformation";
 import { Flex, Text, useTheme, View, Spacer, Block } from "vcc-ui";
-import Link from "next/link";
 import Image from "next/image";
 import { CurrentTheme, ExtendPropValue } from "vcc-ui/dist/types/shared";
+import NextLink from "@Components/NextLink";
 
 export interface VehicleCardProps {
   /**
@@ -53,12 +53,18 @@ export default function VehicleCard({
           extend={{
             flexDirection: "row",
             justifyContent: "center",
-            marginTop: 32,
+            marginTop: 24,
           }}
         >
-          <Link href={`/learn/${id}`}>LEARN</Link>
-          <Spacer />
-          <Link href={`/shop/${id}`}>SHOP</Link>
+          <NextLink href={`/learn/${id}`} arrow="right">
+            LEARN
+          </NextLink>
+
+          <Spacer size={4} />
+
+          <NextLink href={`/shop/${id}`} arrow="right">
+            SHOP
+          </NextLink>
         </Flex>
       )}
     </View>

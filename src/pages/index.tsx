@@ -39,6 +39,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
         maxWidth: maxWidth,
         marginLeft: "auto",
         marginRight: "auto",
+        paddingBottom: 40,
         fromL: {
           paddingLeft: 24,
           paddingRight: 24,

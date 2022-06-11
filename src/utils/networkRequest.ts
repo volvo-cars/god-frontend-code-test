@@ -2,7 +2,7 @@ import Axios, { AxiosResponse } from "axios";
 import { Apis } from "@Constants/apis";
 
 export const axios = Axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  baseURL: process.env.SERVER_URL,
   timeout: 10 * 1000,
   responseType: "json",
   headers: {

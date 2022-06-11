@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { GetStaticProps } from "next";
 import { VehicleInformation } from "@Models/vehicleInformation";
-import { Block, View } from "vcc-ui";
+import { Block, TextInput, View, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
@@ -11,22 +11,58 @@ interface HomePageProps {
 }
 
 export default function HomePage({ vehicles }: HomePageProps) {
+  const [searchKey, setSearchKey] = useState<string>("");
+
+  const [filteredVehicles, setFilteredVehicles] =
+    useState<Array<VehicleInformation>>(vehicles);
+
   const maxWidth =
     Dimensions.vehicleCardWidth * 4 + Dimensions.vehicleCardSpacing * 3;
 
+  function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
+    const searchKey = event.target.value;
+    setSearchKey(searchKey);
+
+    if (searchKey) {
+      setFilteredVehicles(
+        vehicles.filter((vehicle) => vehicle.bodyType.includes(searchKey))
+      );
+    } else {
+      setFilteredVehicles(vehicles);
+    }
+  }
+
   return (
     <Block
-      extend={{ maxWidth: maxWidth, marginLeft: "auto", marginRight: "auto" }}
+      extend={{
+        maxWidth: maxWidth,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
     >
-      <View extend={{ overflowY: "hidden", paddingTop: 100 }}>
+      <Block extend={{ padding: 24 }}>
+        <TextInput
+          value={searchKey}
+          label="Body type"
+          onChange={onSearchKeyChanged}
+        />
+      </Block>
+
+      <View
+        extend={{
+          overflowY: "hidden",
+          paddingTop: 40,
+        }}
+      >
         <View
           extend={{
             flexDirection: "row",
             scrollSnapType: "x mandatory",
             overflowX: "auto",
             scrollPaddingLeft: 24,
-            scrollPaddingRight: 24,
             paddingLeft: 24,
+
+            // Aim to hide the horizontal scroll bar
             marginBottom: -20,
             paddingBottom: 20,
             fromL: {
@@ -34,7 +70,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
             },
           }}
         >
-          {vehicles.map((vehicle) => (
+          {filteredVehicles.map((vehicle) => (
             <VehicleCard
               key={vehicle.id}
               vehicleInfo={vehicle}
@@ -48,6 +84,12 @@ export default function HomePage({ vehicles }: HomePageProps) {
             />
           ))}
         </View>
+
+        {filteredVehicles.length === 0 && !!searchKey && (
+          <Text variant="hillary" extend={{ textAlign: "center" }}>
+            No matched search result.
+          </Text>
+        )}
       </View>
     </Block>
   );

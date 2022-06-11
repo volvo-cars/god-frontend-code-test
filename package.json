@@ -23,7 +23,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "svg-components": "npx @svgr/cli --out-dir ./src/components/svgs ./src/svgs"
   },
   "browserslist": {
     "production": [
@@ -47,6 +48,7 @@
     "@storybook/manager-webpack5": "^6.5.8",
     "@storybook/react": "^6.5.8",
     "@storybook/testing-library": "^0.0.12",
+    "@svgr/cli": "^6.2.1",
     "babel-loader": "^8.2.5",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",

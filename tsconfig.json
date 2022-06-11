@@ -17,7 +17,26 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "useUnknownInCatchVariables": false,
+    "baseUrl": "./",
+    "paths": {
+      "@Components/*": [
+        "src/components/*"
+      ],
+      "@Models/*": [
+        "src/models/*"
+      ],
+      "@Utils/*": [
+        "src/utils/*"
+      ],
+      "@Constants/*": [
+        "src/constants/*"
+      ],
+      "@Services/*": [
+        "src/services/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules"

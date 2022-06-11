@@ -5,7 +5,7 @@ import { Block, TextInput, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
-import HorizontalScrollContainer from "@Components/HorizontalScrollContainer";
+import HorizontalSlider from "@Components/HorizontalSlider";
 
 interface HomePageProps {
   vehicles: Array<VehicleInformation>;
@@ -56,7 +56,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
         />
       </Block>
 
-      <HorizontalScrollContainer childrenCount={filteredVehicles.length}>
+      <HorizontalSlider childrenCount={filteredVehicles.length}>
         {filteredVehicles.map((vehicle) => (
           <VehicleCard
             key={vehicle.id}
@@ -70,7 +70,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
             }}
           />
         ))}
-      </HorizontalScrollContainer>
+      </HorizontalSlider>
 
       {filteredVehicles.length === 0 && !!searchKey && (
         <Text variant="hillary" extend={{ textAlign: "center" }}>

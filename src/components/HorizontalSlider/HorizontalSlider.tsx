@@ -11,7 +11,7 @@ import PaginationDots from "@Components/PaginationDots";
 import { Dimensions } from "@Constants/dimensions";
 import useDebounce from "@Hooks/useDebounce";
 
-interface HorizontalScrollContainerProps {
+interface HorizontalSliderProps {
   children: ReactNode;
 
   /**
@@ -20,14 +20,14 @@ interface HorizontalScrollContainerProps {
   childrenCount: number;
 }
 
-export default function HorizontalScrollContainer({
+export default function HorizontalSlider({
   children,
   childrenCount,
-}: HorizontalScrollContainerProps) {
+}: HorizontalSliderProps) {
   const childWidth =
     Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing;
 
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const [visibleIndex, setVisibleIndex] = useState<Array<number>>([0]);
 
@@ -37,7 +37,7 @@ export default function HorizontalScrollContainer({
   }, [childrenCount]);
 
   function calVisibleIndex() {
-    const container = scrollerRef.current;
+    const container = sliderRef.current;
     if (!container) {
       return;
     }
@@ -64,7 +64,7 @@ export default function HorizontalScrollContainer({
   }
 
   function scrollToPrevious() {
-    const ref = scrollerRef.current;
+    const ref = sliderRef.current;
 
     if (ref) {
       ref.scroll({
@@ -75,7 +75,7 @@ export default function HorizontalScrollContainer({
   }
 
   function scrollToNext() {
-    const ref = scrollerRef.current;
+    const ref = sliderRef.current;
 
     if (ref) {
       ref.scroll({
@@ -95,7 +95,7 @@ export default function HorizontalScrollContainer({
       >
         {/* Horizontal scroll container */}
         <View
-          ref={scrollerRef}
+          ref={sliderRef}
           extend={{
             flexDirection: "row",
             // Aim to hide the horizontal scroll bar

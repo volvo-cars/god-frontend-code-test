@@ -5,14 +5,14 @@ import { getVehicleById } from "@Services/vehicleServices";
 import { Flex, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 
-interface LearnPageProps {
+interface ShopPageProps {
   vehicle: VehicleInformation;
 }
 
-export default function LearnPage({ vehicle }: LearnPageProps) {
+export default function ShopPage({ vehicle }: ShopPageProps) {
   return (
     <Flex extend={{ alignItems: "center", padding: 24 }}>
-      <Text variant="cook">{`Learn about ${vehicle.modelName}`}</Text>
+      <Text variant="cook">{`Purchase ${vehicle.modelName}`}</Text>
 
       <VehicleCard
         vehicleInfo={vehicle}
@@ -28,7 +28,7 @@ export default function LearnPage({ vehicle }: LearnPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<
-  LearnPageProps,
+  ShopPageProps,
   { id: string }
 > = async (context) => {
   if (!context.params) {

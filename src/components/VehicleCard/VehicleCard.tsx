@@ -1,7 +1,8 @@
 import React from "react";
 import { VehicleInformation } from "@Models/vehicleInformation";
-import { Flex, Text, useTheme, View, Spacer } from "vcc-ui";
+import { Flex, Text, useTheme, View, Spacer, Block } from "vcc-ui";
 import Link from "next/link";
+import Image from "next/image";
 import { CurrentTheme, ExtendPropValue } from "vcc-ui/dist/types/shared";
 
 export interface VehicleCardProps {
@@ -11,12 +12,22 @@ export interface VehicleCardProps {
   vehicleInfo: VehicleInformation;
 
   /**
+   * true: display "LEARN" and "SHOP" buttons
+   * false: hide "LEARN" and "SHOP" buttons
+   */
+  interactive: boolean;
+
+  /**
    * A CSS object or a function returning a CSS object
    */
-  extend: ExtendPropValue<CurrentTheme>;
+  extend?: ExtendPropValue<CurrentTheme>;
 }
 
-export default function VehicleCard({ vehicleInfo, extend }: VehicleCardProps) {
+export default function VehicleCard({
+  vehicleInfo,
+  interactive,
+  extend,
+}: VehicleCardProps) {
   const theme = useTheme();
 
   const { id, modelName, bodyType, modelType, imageUrl } = vehicleInfo;
@@ -33,23 +44,23 @@ export default function VehicleCard({ vehicleInfo, extend }: VehicleCardProps) {
         <Text fg={theme.color.primitive.grey200}>{modelType}</Text>
       </Flex>
 
-      <img
-        src={imageUrl}
-        alt={modelName}
-        style={{ marginTop: 16, pointerEvents: "none" }}
-      />
+      <Block extend={{ pointerEvents: "none", marginTop: 16 }}>
+        <Image src={imageUrl} alt={modelName} width={800} height={600} />
+      </Block>
 
-      <Flex
-        extend={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 32,
-        }}
-      >
-        <Link href={`/learn/${id}`}>LEARN</Link>
-        <Spacer />
-        <Link href={`/shop/${id}`}>SHOP</Link>
-      </Flex>
+      {interactive && (
+        <Flex
+          extend={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 32,
+          }}
+        >
+          <Link href={`/learn/${id}`}>LEARN</Link>
+          <Spacer />
+          <Link href={`/shop/${id}`}>SHOP</Link>
+        </Flex>
+      )}
     </View>
   );
 }

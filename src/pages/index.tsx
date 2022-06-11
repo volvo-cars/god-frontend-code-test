@@ -27,8 +27,8 @@ export default function HomePage({ vehicles }: HomePageProps) {
             scrollPaddingLeft: 24,
             scrollPaddingRight: 24,
             paddingLeft: 24,
-            marginBottom: -10,
-            paddingBottom: 10,
+            marginBottom: -20,
+            paddingBottom: 20,
             fromL: {
               // overflowX: "hidden",
             },
@@ -36,8 +36,9 @@ export default function HomePage({ vehicles }: HomePageProps) {
         >
           {vehicles.map((vehicle) => (
             <VehicleCard
-              vehicleInfo={vehicle}
               key={vehicle.id}
+              vehicleInfo={vehicle}
+              interactive={true}
               extend={{
                 width:
                   Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing,

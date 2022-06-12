@@ -1,23 +1,28 @@
 import React, { ChangeEvent, useState } from "react";
 import { GetStaticProps } from "next";
 import { VehicleInformation } from "@Models/vehicleInformation";
-import { Block, TextInput, View, Text } from "vcc-ui";
+import { Block, TextInput, Text, useTheme } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
+import HorizontalSlider from "@Components/HorizontalSlider";
 
 interface HomePageProps {
   vehicles: Array<VehicleInformation>;
 }
 
 export default function HomePage({ vehicles }: HomePageProps) {
+  const { baselineGrid } = useTheme();
+
   const [searchKey, setSearchKey] = useState<string>("");
 
   const [filteredVehicles, setFilteredVehicles] =
     useState<Array<VehicleInformation>>(vehicles);
 
-  const maxWidth =
-    Dimensions.vehicleCardWidth * 4 + Dimensions.vehicleCardSpacing * 3;
+  const vehicleItemSpacing = 3;
+  const maxContentWidth =
+    Dimensions.vehicleCardWidth * 4 +
+    vehicleItemSpacing * baselineGrid * vehicleItemSpacing;
 
   function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
     const searchKey = event.target.value;
@@ -35,12 +40,19 @@ export default function HomePage({ vehicles }: HomePageProps) {
   return (
     <Block
       extend={{
-        maxWidth: maxWidth,
+        maxWidth: maxContentWidth,
         marginLeft: "auto",
         marginRight: "auto",
+        paddingBottom: 40,
+        fromL: {
+          paddingLeft: 24,
+          paddingRight: 24,
+        },
       }}
     >
-      <Block extend={{ padding: 24 }}>
+      <Block
+        extend={{ marginBottom: 40, paddingTop: 24, untilL: { padding: 24 } }}
+      >
         <TextInput
           value={searchKey}
           label="Body type"
@@ -48,49 +60,28 @@ export default function HomePage({ vehicles }: HomePageProps) {
         />
       </Block>
 
-      <View
-        extend={{
-          overflowY: "hidden",
-          paddingTop: 40,
-        }}
+      <HorizontalSlider
+        itemWidth={Dimensions.vehicleCardWidth}
+        spacing={vehicleItemSpacing}
       >
-        <View
-          extend={{
-            flexDirection: "row",
-            scrollSnapType: "x mandatory",
-            overflowX: "auto",
-            scrollPaddingLeft: 24,
-            paddingLeft: 24,
+        {filteredVehicles.map((vehicle) => (
+          <VehicleCard
+            key={vehicle.id}
+            vehicleInfo={vehicle}
+            interactive={true}
+            extend={{
+              width: Dimensions.vehicleCardWidth,
+              scrollSnapAlign: "start",
+            }}
+          />
+        ))}
+      </HorizontalSlider>
 
-            // Aim to hide the horizontal scroll bar
-            marginBottom: -20,
-            paddingBottom: 20,
-            fromL: {
-              // overflowX: "hidden",
-            },
-          }}
-        >
-          {filteredVehicles.map((vehicle) => (
-            <VehicleCard
-              key={vehicle.id}
-              vehicleInfo={vehicle}
-              interactive={true}
-              extend={{
-                width:
-                  Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing,
-                scrollSnapAlign: "start",
-                paddingRight: Dimensions.vehicleCardSpacing,
-              }}
-            />
-          ))}
-        </View>
-
-        {filteredVehicles.length === 0 && !!searchKey && (
-          <Text variant="hillary" extend={{ textAlign: "center" }}>
-            No matched search result.
-          </Text>
-        )}
-      </View>
+      {filteredVehicles.length === 0 && !!searchKey && (
+        <Text variant="hillary" extend={{ textAlign: "center" }}>
+          No matched search result.
+        </Text>
+      )}
     </Block>
   );
 }

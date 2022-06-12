@@ -24,7 +24,8 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "svg-components": "npx @svgr/cli --out-dir ./src/components/svgs ./src/svgs"
+    "svg-components": "npx @svgr/cli --typescript --out-dir ./src/components/svgs ./src/svgs",
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "browserslist": {
     "production": [

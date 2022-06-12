@@ -20,7 +20,9 @@ export default function LearnPage({ vehicle }: LearnPageProps) {
       </Head>
 
       <Flex as="main" extend={{ alignItems: "center", padding: 24 }}>
-        <h1 style={{ textAlign: "center" }}>{title}</h1>
+        <Text variant="peary" extend={{ textAlign: "center" }}>
+          {title}
+        </Text>
 
         <VehicleCard
           as="section"

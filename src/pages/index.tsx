@@ -4,7 +4,7 @@ import {
   VehicleBodyType,
   VehicleInformation,
 } from "@Models/vehicleInformation";
-import { Block, useTheme } from "vcc-ui";
+import { Block, useTheme, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
@@ -55,13 +55,16 @@ export default function HomePage({ vehicles }: HomePageProps) {
           marginLeft: "auto",
           marginRight: "auto",
           paddingBottom: 40,
+          paddingTop: 24,
           fromL: {
             paddingLeft: 24,
             paddingRight: 24,
           },
         }}
       >
-        <h1 style={{ textAlign: "center" }}>Home page</h1>
+        <Text variant="peary" extend={{ textAlign: "center" }}>
+          Home page
+        </Text>
 
         <Block
           as="section"

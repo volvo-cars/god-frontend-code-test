@@ -4,26 +4,36 @@ import { VehicleInformation } from "@Models/vehicleInformation";
 import { getVehicleById } from "@Services/vehicleServices";
 import { Flex, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
+import Head from "next/head";
 
 interface LearnPageProps {
   vehicle: VehicleInformation;
 }
 
 export default function LearnPage({ vehicle }: LearnPageProps) {
-  return (
-    <Flex extend={{ alignItems: "center", padding: 24 }}>
-      <Text variant="cook">{`Learn about ${vehicle.modelName}`}</Text>
+  const title = `Learn about ${vehicle.modelName}`;
 
-      <VehicleCard
-        vehicleInfo={vehicle}
-        interactive={false}
-        extend={{
-          width: "100%",
-          maxWidth: 600,
-          marginTop: 100,
-        }}
-      />
-    </Flex>
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <Flex as="main" extend={{ alignItems: "center", padding: 24 }}>
+        <h1 style={{ textAlign: "center" }}>{title}</h1>
+
+        <VehicleCard
+          as="section"
+          vehicleInfo={vehicle}
+          interactive={false}
+          extend={{
+            width: "100%",
+            maxWidth: 600,
+            marginTop: 100,
+          }}
+        />
+      </Flex>
+    </>
   );
 }
 

@@ -26,7 +26,7 @@ Default.args = {
     "royalblue",
     "darkkhaki",
   ].map((backgroundColor) => (
-    <div
+    <li
       style={{
         width: 200,
         height: 100,
@@ -42,6 +42,6 @@ Default.args = {
       key={backgroundColor}
     >
       {backgroundColor}
-    </div>
+    </li>
   )),
 };

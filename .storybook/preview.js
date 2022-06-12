@@ -1,4 +1,5 @@
 import { StyleProvider, ThemePicker } from "vcc-ui";
+import * as NextImage from "next/image";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -9,6 +10,15 @@ export const parameters = {
     },
   },
 };
+
+/**
+ * https://stackoverflow.com/a/68473603
+ */
+const OriginalNextImage = NextImage.default;
+Object.defineProperty(NextImage, "default", {
+  configurable: true,
+  value: (props) => <OriginalNextImage {...props} unoptimized />,
+});
 
 export const decorators = [
   (Story) => (

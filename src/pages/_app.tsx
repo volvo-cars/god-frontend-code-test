@@ -1,22 +1,12 @@
 import React from "react";
 import { AppProps } from "next/app";
-import { styleRenderer, StyleProvider, ThemePicker } from "vcc-ui";
-
-const renderer = styleRenderer();
-
-renderer.renderStatic(
-  {
-    margin: 0,
-    padding: 0,
-    backgroundColor: "white",
-  },
-  "body"
-);
+import { StyleProvider, ThemePicker } from "vcc-ui";
+import resetStyleRender from "@Utils/resetStyleRender";
 
 export default function VolvoCarsApp({ Component, pageProps }: AppProps) {
   return (
     <React.StrictMode>
-      <StyleProvider renderer={renderer}>
+      <StyleProvider renderer={resetStyleRender}>
         <ThemePicker variant="light">
           <Component {...pageProps} />
         </ThemePicker>

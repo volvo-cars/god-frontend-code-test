@@ -17,6 +17,7 @@ Default.args = {
     modelName: "XC90 Recharge",
     bodyType: VehicleBodyType.suv,
     modelType: "plug-in hybrid",
-    imageUrl: "http://localhost:3000/images/xc90_recharge.jpg",
+    imageUrl:
+      "https://www.volvocars.com/images/v/-/media/project/contentplatform/data/media/my23/car-images/xc90-phev-my23-responsive.jpg?h=600&w=800",
   },
 };

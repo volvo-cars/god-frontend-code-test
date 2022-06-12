@@ -1,5 +1,6 @@
 import { StyleProvider, ThemePicker } from "vcc-ui";
 import * as NextImage from "next/image";
+import resetStyleRender from "../src/utils/resetStyleRender";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -22,7 +23,7 @@ Object.defineProperty(NextImage, "default", {
 
 export const decorators = [
   (Story) => (
-    <StyleProvider>
+    <StyleProvider renderer={resetStyleRender}>
       <ThemePicker variant="light">
         <Story />
       </ThemePicker>

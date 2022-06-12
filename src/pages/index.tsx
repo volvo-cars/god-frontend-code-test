@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { GetStaticProps } from "next";
 import { VehicleInformation } from "@Models/vehicleInformation";
-import { Block, TextInput, Text } from "vcc-ui";
+import { Block, TextInput, Text, useTheme } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
@@ -12,15 +12,17 @@ interface HomePageProps {
 }
 
 export default function HomePage({ vehicles }: HomePageProps) {
+  const { baselineGrid } = useTheme();
+
   const [searchKey, setSearchKey] = useState<string>("");
 
   const [filteredVehicles, setFilteredVehicles] =
     useState<Array<VehicleInformation>>(vehicles);
 
+  const vehicleItemSpacing = 3;
   const maxContentWidth =
-    Dimensions.vehicleCardWidth * 4 + Dimensions.vehicleCardSpacing * 3;
-  const vehicleItemWidth =
-    Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing;
+    Dimensions.vehicleCardWidth * 4 +
+    vehicleItemSpacing * baselineGrid * vehicleItemSpacing;
 
   function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
     const searchKey = event.target.value;
@@ -58,16 +60,18 @@ export default function HomePage({ vehicles }: HomePageProps) {
         />
       </Block>
 
-      <HorizontalSlider itemWidth={vehicleItemWidth}>
+      <HorizontalSlider
+        itemWidth={Dimensions.vehicleCardWidth}
+        spacing={vehicleItemSpacing}
+      >
         {filteredVehicles.map((vehicle) => (
           <VehicleCard
             key={vehicle.id}
             vehicleInfo={vehicle}
             interactive={true}
             extend={{
-              width: vehicleItemWidth,
+              width: Dimensions.vehicleCardWidth,
               scrollSnapAlign: "start",
-              paddingRight: Dimensions.vehicleCardSpacing,
             }}
           />
         ))}

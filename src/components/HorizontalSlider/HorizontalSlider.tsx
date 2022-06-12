@@ -6,24 +6,33 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { View } from "vcc-ui";
+import { useTheme, View } from "vcc-ui";
 import { ChevronCircled } from "@Components/svgs";
 import PaginationDots from "@Components/PaginationDots";
 import useScreenResize from "@Hooks/useScreenResize";
 
-interface HorizontalSliderProps {
+export interface HorizontalSliderProps {
   children: ReactNode;
 
   /**
-   * Each children item must be the same width
+   * Each children item must has same width
    */
   itemWidth: number;
+
+  /**
+   * Spacing between items
+   */
+  spacing?: number;
 }
 
 export default function HorizontalSlider({
   children,
   itemWidth,
+  spacing = 0,
 }: HorizontalSliderProps) {
+  const { baselineGrid } = useTheme();
+  const spacingInPixel = spacing * baselineGrid;
+
   const itemsCount = Array.isArray(children) ? children.length : 1;
 
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -42,7 +51,7 @@ export default function HorizontalSlider({
     const visibleIndex = [...new Array(itemsCount)]
       .map((_, index) => index)
       .filter((index) => {
-        const startX = index * itemWidth;
+        const startX = index * (itemWidth + spacingInPixel);
         const endX = startX + itemWidth;
 
         return startX >= scrollOffset && endX <= scrollOffset + clientWidth;
@@ -51,7 +60,7 @@ export default function HorizontalSlider({
     if (visibleIndex.length > 0) {
       setVisibleIndex(visibleIndex);
     }
-  }, [itemsCount, itemWidth]);
+  }, [itemsCount, itemWidth, spacingInPixel]);
 
   // If the itemsCount changes causes re-render, calculator the visibleIndex again
   useEffect(() => {
@@ -62,7 +71,7 @@ export default function HorizontalSlider({
   useScreenResize(calVisibleIndex);
 
   // children must be multiple items, couldn't be a single item or null
-  if (itemsCount < 2) {
+  if (!Array.isArray(children) || itemsCount < 2) {
     console.warn(
       "children must be multiple items, couldn't be a single item or null"
     );
@@ -80,7 +89,7 @@ export default function HorizontalSlider({
     if (ref) {
       ref.scroll({
         behavior: "smooth",
-        left: ref.scrollLeft - itemWidth,
+        left: ref.scrollLeft - (itemWidth + spacingInPixel),
       });
     }
   }
@@ -91,7 +100,7 @@ export default function HorizontalSlider({
     if (ref) {
       ref.scroll({
         behavior: "smooth",
-        left: ref.scrollLeft + itemWidth,
+        left: ref.scrollLeft + (itemWidth + spacingInPixel),
       });
     }
   }
@@ -123,6 +132,7 @@ export default function HorizontalSlider({
               overflowX: "hidden",
             },
           }}
+          spacing={spacing}
           onScroll={onHorizontalScroll}
         >
           {children}

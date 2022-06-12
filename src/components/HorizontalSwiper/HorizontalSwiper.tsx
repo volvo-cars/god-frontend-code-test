@@ -1,5 +1,4 @@
 import React, {
-  CSSProperties,
   ReactNode,
   useCallback,
   useEffect,
@@ -11,7 +10,7 @@ import { ChevronCircled } from "@Components/svgs";
 import PaginationDots from "@Components/PaginationDots";
 import useScreenResize from "@Hooks/useScreenResize";
 
-export interface HorizontalSliderProps {
+export interface HorizontalSwiperProps {
   children: ReactNode;
 
   /**
@@ -25,24 +24,24 @@ export interface HorizontalSliderProps {
   spacing?: number;
 }
 
-export default function HorizontalSlider({
+export default function HorizontalSwiper({
   children,
   itemWidth,
   spacing = 0,
-}: HorizontalSliderProps) {
+}: HorizontalSwiperProps) {
   const { baselineGrid } = useTheme();
   const spacingInPixel = spacing * baselineGrid;
 
-  const sliderContainerId = "list";
+  const swiperContainerId = "list";
 
   const itemsCount = Array.isArray(children) ? children.length : 1;
 
-  const sliderRef = useRef<HTMLUListElement>(null);
+  const swiperRef = useRef<HTMLUListElement>(null);
 
   const [visibleIndex, setVisibleIndex] = useState<Array<number>>([0]);
 
   const calVisibleIndex = useCallback(() => {
-    const container = sliderRef.current;
+    const container = swiperRef.current;
     if (!container) {
       return;
     }
@@ -86,7 +85,7 @@ export default function HorizontalSlider({
   }
 
   function scrollToPrevious() {
-    const ref = sliderRef.current;
+    const ref = swiperRef.current;
 
     if (ref) {
       ref.scroll({
@@ -97,7 +96,7 @@ export default function HorizontalSlider({
   }
 
   function scrollToNext() {
-    const ref = sliderRef.current;
+    const ref = swiperRef.current;
 
     if (ref) {
       ref.scroll({
@@ -119,8 +118,8 @@ export default function HorizontalSlider({
         <View
           as="ul"
           role="list"
-          id={sliderContainerId}
-          ref={sliderRef}
+          id={swiperContainerId}
+          ref={swiperRef}
           extend={{
             flexDirection: "row",
             // Aim to hide the horizontal scroll bar
@@ -175,13 +174,13 @@ export default function HorizontalSlider({
           style={{ transform: "rotate(180deg)" }}
           disabled={visibleIndex.includes(0)}
           aria-label="previous"
-          aria-controls={sliderContainerId}
+          aria-controls={swiperContainerId}
         />
         <MoveButton
           onClick={scrollToNext}
           disabled={visibleIndex.includes(itemsCount - 1)}
           aria-label="next"
-          aria-controls={sliderContainerId}
+          aria-controls={swiperContainerId}
         />
       </View>
     </>

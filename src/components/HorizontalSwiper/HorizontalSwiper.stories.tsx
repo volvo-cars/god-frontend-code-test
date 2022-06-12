@@ -1,15 +1,15 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import HorizontalSlider, { HorizontalSliderProps } from "./HorizontalSlider";
+import HorizontalSwiper, { HorizontalSwiperProps } from "./HorizontalSwiper";
 
 export default {
-  title: "Component/HorizontalSlider",
-  component: HorizontalSlider,
+  title: "Component/HorizontalSwiper",
+  component: HorizontalSwiper,
 } as Meta;
 
-const Template: Story<HorizontalSliderProps> = ({ children, ...args }) => (
+const Template: Story<HorizontalSwiperProps> = ({ children, ...args }) => (
   <div style={{ maxWidth: 800 }}>
-    <HorizontalSlider {...args}>{children}</HorizontalSlider>
+    <HorizontalSwiper {...args}>{children}</HorizontalSwiper>
   </div>
 );
 

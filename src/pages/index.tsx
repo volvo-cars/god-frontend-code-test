@@ -8,7 +8,7 @@ import { Block, useTheme, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
-import HorizontalSlider from "@Components/HorizontalSlider";
+import HorizontalSwiper from "@Components/HorizontalSwiper";
 import FilterBar from "@Components/FilterBar";
 import Head from "next/head";
 
@@ -79,7 +79,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
         </Block>
 
         <Block as="section">
-          <HorizontalSlider
+          <HorizontalSwiper
             itemWidth={Dimensions.vehicleCardWidth}
             spacing={vehicleItemSpacing}
           >
@@ -96,7 +96,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
                 }}
               />
             ))}
-          </HorizontalSlider>
+          </HorizontalSwiper>
         </Block>
       </Block>
     </>

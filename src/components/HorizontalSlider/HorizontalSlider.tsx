@@ -124,8 +124,9 @@ export default function HorizontalSlider({
             untilL: {
               scrollSnapType: "x mandatory",
               overflowX: "auto",
-              scrollPaddingLeft: 24,
-              paddingLeft: 24,
+              scrollPaddingLeft: spacingInPixel,
+              paddingLeft: spacingInPixel,
+              paddingRight: spacingInPixel,
             },
             fromL: {
               // Disable horizontal scroll, controls scrolling by buttons

@@ -31,7 +31,7 @@ export default function FilterBar({
           value={option}
           key={option}
           aria-label={option}
-          aria-checked={option === selected}
+          aria-selected={option === selected}
         >
           {option}
         </option>

@@ -33,9 +33,11 @@ export default function HorizontalSlider({
   const { baselineGrid } = useTheme();
   const spacingInPixel = spacing * baselineGrid;
 
+  const sliderContainerId = "list";
+
   const itemsCount = Array.isArray(children) ? children.length : 1;
 
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLUListElement>(null);
 
   const [visibleIndex, setVisibleIndex] = useState<Array<number>>([0]);
 
@@ -79,7 +81,7 @@ export default function HorizontalSlider({
     return <>{children}</>;
   }
 
-  function onHorizontalScroll(_: React.UIEvent<HTMLDivElement>) {
+  function onHorizontalScroll(_: React.UIEvent<HTMLUListElement>) {
     calVisibleIndex();
   }
 
@@ -115,6 +117,9 @@ export default function HorizontalSlider({
       >
         {/* Horizontal scroll container */}
         <View
+          as="ul"
+          role="list"
+          id={sliderContainerId}
           ref={sliderRef}
           extend={{
             flexDirection: "row",
@@ -167,31 +172,32 @@ export default function HorizontalSlider({
       >
         <MoveButton
           onClick={scrollToPrevious}
-          label="previous"
           style={{ transform: "rotate(180deg)" }}
           disabled={visibleIndex.includes(0)}
+          aria-label="previous"
+          aria-controls={sliderContainerId}
         />
         <MoveButton
           onClick={scrollToNext}
-          label="next"
           disabled={visibleIndex.includes(itemsCount - 1)}
+          aria-label="next"
+          aria-controls={sliderContainerId}
         />
       </View>
     </>
   );
 }
 
+interface MoveButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  disabled: boolean;
+}
+
 function MoveButton({
-  label,
   onClick,
   style = {},
   disabled,
-}: {
-  label: string;
-  onClick: () => void;
-  disabled: boolean;
-  style?: CSSProperties;
-}) {
+  ...rest
+}: MoveButtonProps) {
   return (
     <button
       style={{
@@ -202,9 +208,10 @@ function MoveButton({
         cursor: disabled ? "not-allowed" : "pointer",
         ...style,
       }}
-      aria-label={label}
       onClick={onClick}
       disabled={disabled}
+      aria-disabled={disabled}
+      {...rest}
     >
       <ChevronCircled
         style={{ width: 40, height: 40 }}

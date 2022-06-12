@@ -27,7 +27,12 @@ export default function FilterBar({
   return (
     <SelectInput label={label} value={selected} onChange={onChange} {...rest}>
       {options.map((option) => (
-        <option value={option} key={option}>
+        <option
+          value={option}
+          key={option}
+          aria-label={option}
+          aria-checked={option === selected}
+        >
           {option}
         </option>
       ))}

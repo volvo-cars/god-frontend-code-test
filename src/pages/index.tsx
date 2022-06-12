@@ -61,7 +61,10 @@ export default function HomePage({ vehicles }: HomePageProps) {
           },
         }}
       >
+        <h1 style={{ textAlign: "center" }}>Home page</h1>
+
         <Block
+          as="section"
           extend={{ marginBottom: 40, paddingTop: 24, untilL: { padding: 24 } }}
         >
           <FilterBar
@@ -72,22 +75,26 @@ export default function HomePage({ vehicles }: HomePageProps) {
           />
         </Block>
 
-        <HorizontalSlider
-          itemWidth={Dimensions.vehicleCardWidth}
-          spacing={vehicleItemSpacing}
-        >
-          {filteredVehicles.map((vehicle) => (
-            <VehicleCard
-              key={vehicle.id}
-              vehicleInfo={vehicle}
-              interactive={true}
-              extend={{
-                width: Dimensions.vehicleCardWidth,
-                scrollSnapAlign: "start",
-              }}
-            />
-          ))}
-        </HorizontalSlider>
+        <Block as="section">
+          <HorizontalSlider
+            itemWidth={Dimensions.vehicleCardWidth}
+            spacing={vehicleItemSpacing}
+          >
+            {filteredVehicles.map((vehicle) => (
+              <VehicleCard
+                as="li"
+                role="listitem"
+                key={vehicle.id}
+                vehicleInfo={vehicle}
+                interactive={true}
+                extend={{
+                  width: Dimensions.vehicleCardWidth,
+                  scrollSnapAlign: "start",
+                }}
+              />
+            ))}
+          </HorizontalSlider>
+        </Block>
       </Block>
     </>
   );

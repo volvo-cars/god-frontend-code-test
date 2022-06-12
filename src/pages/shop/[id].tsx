@@ -4,26 +4,35 @@ import { VehicleInformation } from "@Models/vehicleInformation";
 import { getVehicleById } from "@Services/vehicleServices";
 import { Flex, Text } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
+import Head from "next/head";
 
 interface ShopPageProps {
   vehicle: VehicleInformation;
 }
 
 export default function ShopPage({ vehicle }: ShopPageProps) {
-  return (
-    <Flex extend={{ alignItems: "center", padding: 24 }}>
-      <Text variant="cook">{`Purchase ${vehicle.modelName}`}</Text>
+  const title = `Purchase ${vehicle.modelName}`;
 
-      <VehicleCard
-        vehicleInfo={vehicle}
-        interactive={false}
-        extend={{
-          width: "100%",
-          maxWidth: 600,
-          marginTop: 100,
-        }}
-      />
-    </Flex>
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <Flex as="main" extend={{ alignItems: "center", padding: 24 }}>
+        <Text variant="cook">{title}</Text>
+
+        <VehicleCard
+          vehicleInfo={vehicle}
+          interactive={false}
+          extend={{
+            width: "100%",
+            maxWidth: 600,
+            marginTop: 100,
+          }}
+        />
+      </Flex>
+    </>
   );
 }
 

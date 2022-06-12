@@ -10,6 +10,7 @@ import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
 import HorizontalSlider from "@Components/HorizontalSlider";
 import FilterBar from "@Components/FilterBar";
+import Head from "next/head";
 
 type BodyTypeOption = VehicleBodyType | "ALL";
 
@@ -42,46 +43,53 @@ export default function HomePage({ vehicles }: HomePageProps) {
   }
 
   return (
-    <Block
-      extend={{
-        maxWidth: maxContentWidth,
-        marginLeft: "auto",
-        marginRight: "auto",
-        paddingBottom: 40,
-        fromL: {
-          paddingLeft: 24,
-          paddingRight: 24,
-        },
-      }}
-    >
-      <Block
-        extend={{ marginBottom: 40, paddingTop: 24, untilL: { padding: 24 } }}
-      >
-        <FilterBar
-          label="Filter cars by the body type."
-          options={["ALL", ...Object.values(VehicleBodyType)]}
-          onSelect={onFilterKeyChanged}
-          selected={filterKey}
-        />
-      </Block>
+    <>
+      <Head>
+        <title>Volvo cars - homepage</title>
+      </Head>
 
-      <HorizontalSlider
-        itemWidth={Dimensions.vehicleCardWidth}
-        spacing={vehicleItemSpacing}
+      <Block
+        as="main"
+        extend={{
+          maxWidth: maxContentWidth,
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingBottom: 40,
+          fromL: {
+            paddingLeft: 24,
+            paddingRight: 24,
+          },
+        }}
       >
-        {filteredVehicles.map((vehicle) => (
-          <VehicleCard
-            key={vehicle.id}
-            vehicleInfo={vehicle}
-            interactive={true}
-            extend={{
-              width: Dimensions.vehicleCardWidth,
-              scrollSnapAlign: "start",
-            }}
+        <Block
+          extend={{ marginBottom: 40, paddingTop: 24, untilL: { padding: 24 } }}
+        >
+          <FilterBar
+            label="Filter cars by the body type."
+            options={["ALL", ...Object.values(VehicleBodyType)]}
+            onSelect={onFilterKeyChanged}
+            selected={filterKey}
           />
-        ))}
-      </HorizontalSlider>
-    </Block>
+        </Block>
+
+        <HorizontalSlider
+          itemWidth={Dimensions.vehicleCardWidth}
+          spacing={vehicleItemSpacing}
+        >
+          {filteredVehicles.map((vehicle) => (
+            <VehicleCard
+              key={vehicle.id}
+              vehicleInfo={vehicle}
+              interactive={true}
+              extend={{
+                width: Dimensions.vehicleCardWidth,
+                scrollSnapAlign: "start",
+              }}
+            />
+          ))}
+        </HorizontalSlider>
+      </Block>
+    </>
   );
 }
 

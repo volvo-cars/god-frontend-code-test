@@ -1,6 +1,7 @@
 import React, {
   CSSProperties,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -8,39 +9,28 @@ import React, {
 import { View } from "vcc-ui";
 import { ChevronCircled } from "@Components/svgs";
 import PaginationDots from "@Components/PaginationDots";
-import { Dimensions } from "@Constants/dimensions";
-import useDebounce from "@Hooks/useDebounce";
 import useScreenResize from "@Hooks/useScreenResize";
 
 interface HorizontalSliderProps {
   children: ReactNode;
 
   /**
-   * Used to show how many pagination dots
+   * Each children item must be the same width
    */
-  childrenCount: number;
+  itemWidth: number;
 }
 
 export default function HorizontalSlider({
   children,
-  childrenCount,
+  itemWidth,
 }: HorizontalSliderProps) {
-  const childWidth =
-    Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing;
+  const itemsCount = Array.isArray(children) ? children.length : 1;
 
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const [visibleIndex, setVisibleIndex] = useState<Array<number>>([0]);
 
-  // If the childrenCount changes causes re-render, calculator the visibleIndex again
-  useEffect(() => {
-    calVisibleIndex();
-  }, [childrenCount]);
-
-  // If the screen size changed, calculator the visibleIndex again
-  useScreenResize(calVisibleIndex);
-
-  function calVisibleIndex() {
+  const calVisibleIndex = useCallback(() => {
     const container = sliderRef.current;
     if (!container) {
       return;
@@ -49,11 +39,11 @@ export default function HorizontalSlider({
     const scrollOffset = container.scrollLeft;
     const clientWidth = container.clientWidth;
 
-    const visibleIndex = [...new Array(childrenCount)]
+    const visibleIndex = [...new Array(itemsCount)]
       .map((_, index) => index)
       .filter((index) => {
-        const startX = index * childWidth;
-        const endX = startX + Dimensions.vehicleCardWidth;
+        const startX = index * itemWidth;
+        const endX = startX + itemWidth;
 
         return startX >= scrollOffset && endX <= scrollOffset + clientWidth;
       });
@@ -61,9 +51,26 @@ export default function HorizontalSlider({
     if (visibleIndex.length > 0) {
       setVisibleIndex(visibleIndex);
     }
+  }, [itemsCount, itemWidth]);
+
+  // If the itemsCount changes causes re-render, calculator the visibleIndex again
+  useEffect(() => {
+    calVisibleIndex();
+  }, [itemsCount, calVisibleIndex]);
+
+  // If the screen size changed, calculator the visibleIndex again
+  useScreenResize(calVisibleIndex);
+
+  // children must be multiple items, couldn't be a single item or null
+  if (itemsCount < 2) {
+    console.warn(
+      "children must be multiple items, couldn't be a single item or null"
+    );
+
+    return <>{children}</>;
   }
 
-  function onHorizontalScroll(event: React.UIEvent<HTMLDivElement>) {
+  function onHorizontalScroll(_: React.UIEvent<HTMLDivElement>) {
     calVisibleIndex();
   }
 
@@ -73,7 +80,7 @@ export default function HorizontalSlider({
     if (ref) {
       ref.scroll({
         behavior: "smooth",
-        left: ref.scrollLeft - childWidth,
+        left: ref.scrollLeft - itemWidth,
       });
     }
   }
@@ -84,7 +91,7 @@ export default function HorizontalSlider({
     if (ref) {
       ref.scroll({
         behavior: "smooth",
-        left: ref.scrollLeft + childWidth,
+        left: ref.scrollLeft + itemWidth,
       });
     }
   }
@@ -116,53 +123,49 @@ export default function HorizontalSlider({
               overflowX: "hidden",
             },
           }}
-          onScroll={useDebounce(onHorizontalScroll, 10)}
+          onScroll={onHorizontalScroll}
         >
           {children}
         </View>
       </View>
 
-      {childrenCount > 0 && (
-        <>
-          {/* Pagination dots on mobile only */}
-          <View
-            extend={{
-              alignItems: "center",
-              marginTop: 24,
-              fromL: {
-                display: "none",
-              },
-            }}
-          >
-            <PaginationDots total={childrenCount} activeIndex={visibleIndex} />
-          </View>
+      {/* Pagination dots on mobile only */}
+      <View
+        extend={{
+          alignItems: "center",
+          marginTop: 24,
+          fromL: {
+            display: "none",
+          },
+        }}
+      >
+        <PaginationDots total={itemsCount} activeIndex={visibleIndex} />
+      </View>
 
-          {/* Move to previous/next buttons, on desktop only */}
-          <View
-            spacing={2}
-            extend={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              marginTop: 32,
-              untilL: {
-                display: "none",
-              },
-            }}
-          >
-            <MoveButton
-              onClick={scrollToPrevious}
-              label="previous"
-              style={{ transform: "rotate(180deg)" }}
-              disabled={visibleIndex.includes(0)}
-            />
-            <MoveButton
-              onClick={scrollToNext}
-              label="next"
-              disabled={visibleIndex.includes(childrenCount - 1)}
-            />
-          </View>
-        </>
-      )}
+      {/* Move to previous/next buttons, on desktop only */}
+      <View
+        spacing={2}
+        extend={{
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          marginTop: 32,
+          untilL: {
+            display: "none",
+          },
+        }}
+      >
+        <MoveButton
+          onClick={scrollToPrevious}
+          label="previous"
+          style={{ transform: "rotate(180deg)" }}
+          disabled={visibleIndex.includes(0)}
+        />
+        <MoveButton
+          onClick={scrollToNext}
+          label="next"
+          disabled={visibleIndex.includes(itemsCount - 1)}
+        />
+      </View>
     </>
   );
 }

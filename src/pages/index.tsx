@@ -19,6 +19,8 @@ export default function HomePage({ vehicles }: HomePageProps) {
 
   const maxContentWidth =
     Dimensions.vehicleCardWidth * 4 + Dimensions.vehicleCardSpacing * 3;
+  const vehicleItemWidth =
+    Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing;
 
   function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
     const searchKey = event.target.value;
@@ -56,15 +58,14 @@ export default function HomePage({ vehicles }: HomePageProps) {
         />
       </Block>
 
-      <HorizontalSlider childrenCount={filteredVehicles.length}>
+      <HorizontalSlider itemWidth={vehicleItemWidth}>
         {filteredVehicles.map((vehicle) => (
           <VehicleCard
             key={vehicle.id}
             vehicleInfo={vehicle}
             interactive={true}
             extend={{
-              width:
-                Dimensions.vehicleCardWidth + Dimensions.vehicleCardSpacing,
+              width: vehicleItemWidth,
               scrollSnapAlign: "start",
               paddingRight: Dimensions.vehicleCardSpacing,
             }}

@@ -8,7 +8,7 @@ interface NextLinkProps extends LinkProps {
 }
 
 /**
- * The purpose of this component is to utilize NextJsLink, speed up the client-side transitions between routes.
+ * The purpose of this wrapper component is to utilize NextJsLink, speed up the client-side transitions between routes.
  * Instead of hard-refreshing the entire html.
  */
 export default function NextLink({ children, href, ...rest }: NextLinkProps) {

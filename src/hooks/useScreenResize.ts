@@ -13,5 +13,5 @@ export default function useScreenResize(
     return () => {
       window?.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [callback]);
 }

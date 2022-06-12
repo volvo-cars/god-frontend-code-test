@@ -1,11 +1,17 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { GetStaticProps } from "next";
-import { VehicleInformation } from "@Models/vehicleInformation";
-import { Block, TextInput, Text, useTheme } from "vcc-ui";
+import {
+  VehicleBodyType,
+  VehicleInformation,
+} from "@Models/vehicleInformation";
+import { Block, useTheme } from "vcc-ui";
 import VehicleCard from "@Components/VehicleCard";
 import { Dimensions } from "@Constants/dimensions";
 import { getAllVehicles } from "@Services/vehicleServices";
 import HorizontalSlider from "@Components/HorizontalSlider";
+import FilterBar from "@Components/FilterBar";
+
+type BodyTypeOption = VehicleBodyType | "ALL";
 
 interface HomePageProps {
   vehicles: Array<VehicleInformation>;
@@ -13,27 +19,25 @@ interface HomePageProps {
 
 export default function HomePage({ vehicles }: HomePageProps) {
   const { baselineGrid } = useTheme();
+  const vehicleItemSpacing = 3;
+  const maxContentWidth =
+    Dimensions.vehicleCardWidth * 4 +
+    vehicleItemSpacing * baselineGrid * (4 - 1);
 
-  const [searchKey, setSearchKey] = useState<string>("");
+  const [filterKey, setFilterKey] = useState<BodyTypeOption>("ALL");
 
   const [filteredVehicles, setFilteredVehicles] =
     useState<Array<VehicleInformation>>(vehicles);
 
-  const vehicleItemSpacing = 3;
-  const maxContentWidth =
-    Dimensions.vehicleCardWidth * 4 +
-    vehicleItemSpacing * baselineGrid * vehicleItemSpacing;
+  function onFilterKeyChanged(filterKey: string) {
+    setFilterKey(filterKey as BodyTypeOption);
 
-  function onSearchKeyChanged(event: ChangeEvent<HTMLInputElement>) {
-    const searchKey = event.target.value;
-    setSearchKey(searchKey);
-
-    if (searchKey) {
-      setFilteredVehicles(
-        vehicles.filter((vehicle) => vehicle.bodyType.includes(searchKey))
-      );
-    } else {
+    if (filterKey === "ALL") {
       setFilteredVehicles(vehicles);
+    } else {
+      setFilteredVehicles(
+        vehicles.filter((vehicle) => vehicle.bodyType.includes(filterKey))
+      );
     }
   }
 
@@ -53,10 +57,11 @@ export default function HomePage({ vehicles }: HomePageProps) {
       <Block
         extend={{ marginBottom: 40, paddingTop: 24, untilL: { padding: 24 } }}
       >
-        <TextInput
-          value={searchKey}
-          label="Body type"
-          onChange={onSearchKeyChanged}
+        <FilterBar
+          label="Filter cars by the body type."
+          options={["ALL", ...Object.values(VehicleBodyType)]}
+          onSelect={onFilterKeyChanged}
+          selected={filterKey}
         />
       </Block>
 
@@ -76,12 +81,6 @@ export default function HomePage({ vehicles }: HomePageProps) {
           />
         ))}
       </HorizontalSlider>
-
-      {filteredVehicles.length === 0 && !!searchKey && (
-        <Text variant="hillary" extend={{ textAlign: "center" }}>
-          No matched search result.
-        </Text>
-      )}
     </Block>
   );
 }

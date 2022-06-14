@@ -74,7 +74,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
         >
           <FilterBar
             label="Filter cars by the body type."
-            options={["ALL", ...Object.values(VehicleBodyType)]}
+            options={["all", ...Object.values(VehicleBodyType)]}
             onSelect={onFilterKeyChanged}
             selected={filterKey}
           />

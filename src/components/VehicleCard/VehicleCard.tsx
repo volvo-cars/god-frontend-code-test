@@ -88,7 +88,7 @@ export default function VehicleCard({
           spacing={4}
         >
           <NextLink
-            href={`/learn/${id}`}
+            href={`/learn/${encodeURIComponent(id)}`}
             arrow="right"
             aria-label={`Learn more about ${modelName}`}
           >
@@ -96,7 +96,7 @@ export default function VehicleCard({
           </NextLink>
 
           <NextLink
-            href={`/shop/${id}`}
+            href={`/shop/${encodeURIComponent(id)}`}
             arrow="right"
             aria-label={`Purchase ${modelName}`}
           >

@@ -12,7 +12,7 @@ import HorizontalSwiper from "@Components/HorizontalSwiper";
 import FilterBar from "@Components/FilterBar";
 import Head from "next/head";
 
-type BodyTypeOption = VehicleBodyType | "ALL";
+type BodyTypeOption = VehicleBodyType | "all";
 
 interface HomePageProps {
   vehicles: Array<VehicleInformation>;
@@ -25,7 +25,7 @@ export default function HomePage({ vehicles }: HomePageProps) {
     Dimensions.vehicleCardWidth * 4 +
     vehicleItemSpacing * baselineGrid * (4 - 1);
 
-  const [filterKey, setFilterKey] = useState<BodyTypeOption>("ALL");
+  const [filterKey, setFilterKey] = useState<BodyTypeOption>("all");
 
   const [filteredVehicles, setFilteredVehicles] =
     useState<Array<VehicleInformation>>(vehicles);
@@ -33,12 +33,14 @@ export default function HomePage({ vehicles }: HomePageProps) {
   function onFilterKeyChanged(filterKey: string) {
     setFilterKey(filterKey as BodyTypeOption);
 
-    if (filterKey === "ALL") {
+    if (filterKey === "all") {
       setFilteredVehicles(vehicles);
     } else {
-      setFilteredVehicles(
-        vehicles.filter((vehicle) => vehicle.bodyType.includes(filterKey))
+      const filteredVehicles = vehicles.filter(
+        (vehicle) => vehicle.bodyType === filterKey
       );
+
+      setFilteredVehicles(filteredVehicles);
     }
   }
 

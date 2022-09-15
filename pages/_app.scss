@@ -1,0 +1,35 @@
+@import "../src/styles/colors";
+@import "../src/styles/sizes";
+
+html {
+  // Always display the vertical scrollbar
+  overflow-y: scroll;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  font-family: "Arial", sans-serif;
+  color: $color-body-text;
+}
+
+// To avoid these elements to bleed through the parent
+img,
+iframe,
+embed,
+video {
+  max-width: 100%;
+}
+
+main {
+  margin: $spacer-xl $spacer 110px $spacer;
+}

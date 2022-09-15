@@ -1,9 +1,10 @@
 import s from "./CarView.module.scss";
 import React, { ReactElement, useEffect, useState } from "react";
+import _ from "lodash";
+import { TextInput } from "vcc-ui";
 import { Car } from "../models/Car";
 import { includesIgnoreCase } from "../util/stringUtils";
 import { CarList } from "../components/CarList";
-import _ from "lodash";
 
 export function CarView(): ReactElement {
   const [filter, setFilter] = useState("");
@@ -41,11 +42,9 @@ export function CarView(): ReactElement {
 
   return (
     <div className={s.carView}>
-      <label htmlFor="filter">Filter by body type</label>
-      <input
-        type="text"
-        id="filter"
+      <TextInput
         value={filter}
+        label="Body type"
         onChange={handleFilterChange}
       />
       <CarList cars={filteredCars} />

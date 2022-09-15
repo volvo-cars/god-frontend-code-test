@@ -1,0 +1,60 @@
+@import "../sizes";
+@import "../colors";
+
+div.swiper {
+  // Navigation
+
+  .swiper-wrapper {
+    padding-bottom: 30px;
+
+    @media screen and (min-width: $vw-lg) {
+      padding-bottom: 60px; // Need bigger padding for the nav buttons to be visible
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    // Positioning
+    top: unset;
+    bottom: 10px;
+
+    // Icon
+    background: url("/images/icons/chevron-circled.svg") center no-repeat;
+    &:after {
+      content: none;
+    }
+
+    // Visibility
+    display: none;
+
+    @media screen and (min-width: $vw-lg) {
+      display: block;
+    }
+  }
+
+  .swiper-button-prev {
+    left: unset;
+    right: 48px;
+
+    transform: rotate(180deg);
+  }
+
+  .swiper-button-next {
+    right: 0;
+  }
+
+
+  // Pagination
+
+  .swiper-pagination {
+    display: block;
+
+    @media screen and (min-width: $vw-lg) {
+      display: none;
+    }
+
+    > .swiper-pagination-bullet-active {
+      background-color: $color-swiper-pagination-bullet-active;
+    }
+  }
+}

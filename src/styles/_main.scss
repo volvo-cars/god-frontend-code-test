@@ -1,0 +1,10 @@
+// 3rd-party
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+// Vendor overrides
+@import 'vendor-overrides/swiper';
+
+// App globals
+@import 'typography';

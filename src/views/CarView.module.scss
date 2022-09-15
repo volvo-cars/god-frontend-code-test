@@ -1,0 +1,11 @@
+@import "../styles/sizes";
+
+.carView:global {
+  > input {
+    display: block;
+  }
+
+  > .swiper {
+    margin-top: $spacer;
+  }
+}

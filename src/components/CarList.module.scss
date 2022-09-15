@@ -1,0 +1,45 @@
+@import "../styles/colors";
+@import "../styles/sizes";
+
+.carList :global {
+  .body-type {
+    font-weight: bold;
+  }
+
+  .model-info {
+    display: flex;
+    flex-direction: column;
+    margin: $spacer 0;
+
+    > h2 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    > span {
+      margin-top: $spacer-xs;
+    }
+
+    @media screen and (min-width: $vw-lg) {
+      flex-direction: row;
+      align-items: center;
+
+      > h2 {
+        margin-right: $spacer-xxs;
+      }
+
+      > span {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    justify-content: center;
+
+    > a:not(:first-child) {
+      margin-left: $spacer;
+    }
+  }
+}

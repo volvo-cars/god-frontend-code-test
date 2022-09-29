@@ -1,30 +1,81 @@
 import { useSpringCarousel } from "react-spring-carousel";
-import { Car } from "../../types/Car";
-
-interface CarouselProps {
-  cars: Car[];
+import { ReactElement } from "react";
+import { useWindowSize } from "../hooks/useWindowSize";
+import { Flex, IconButton } from "vcc-ui";
+import Image from "next/image";
+interface CarouselProps<T> {
+  data: T[];
+  children(data: T): ReactElement;
+  itemsPerSlide?: number;
 }
 
-export const Carousel: React.FC<CarouselProps> = (props) => {
+export function Carousel<T extends any>({
+  data,
+  children,
+  itemsPerSlide = 1,
+}: CarouselProps<T>) {
+  const size = useWindowSize();
+  const breakpoint = 500;
+
   const { carouselFragment, slideToPrevItem, slideToNextItem } =
     useSpringCarousel({
-      itemsPerSlide: 3,
-      items: props.cars.map((i) => ({
-        id: i.id,
-        renderItem: (
-          <div>
-            <h2>{i.modelName}</h2>
-            <img src={i.imageUrl} width={400} height={300}></img>
-          </div>
-        ),
+      gutter: 24,
+      itemsPerSlide: itemsPerSlide,
+      items: data.map((item: T, index: number) => ({
+        id: index.toString(),
+        renderItem: children(item),
       })),
     });
 
   return (
-    <div>
-      {carouselFragment}
-      <button onClick={slideToPrevItem}>Prev item</button>
-      <button onClick={slideToNextItem}>Next item</button>
-    </div>
+    <Flex
+      extend={{
+        overflow: "hidden",
+        flexWrap: "nowrap",
+      }}
+    >
+      <Flex>{carouselFragment}</Flex>
+      {size.width > breakpoint ? (
+        <>
+          <Flex
+            extend={{
+              flexDirection: "row",
+              alignSelf: "flex-end",
+              gap: 10,
+            }}
+          >
+            <IconButton
+              onClick={slideToPrevItem}
+              variant="outline"
+              iconName="navigation-chevronback"
+            />
+
+            <IconButton
+              onClick={slideToNextItem}
+              variant="outline"
+              iconName="navigation-chevronforward"
+            />
+          </Flex>
+        </>
+      ) : (
+        <>
+          <Flex
+            extend={{
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            {data.map((item, index) => (
+              <Image
+                key={index}
+                src="/images/chevron-circled.svg"
+                width={50}
+                height={50}
+              />
+            ))}
+          </Flex>
+        </>
+      )}
+    </Flex>
   );
-};
+}

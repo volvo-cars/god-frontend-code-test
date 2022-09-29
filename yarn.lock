@@ -52,6 +52,13 @@
     "@jridgewell/gen-mapping" "^0.3.2"
     jsesc "^2.5.1"
 
+"@babel/helper-annotate-as-pure@^7.16.0":
+  version "7.18.6"
+  resolved "https://registry.yarnpkg.com/@babel/helper-annotate-as-pure/-/helper-annotate-as-pure-7.18.6.tgz#eaa49f6f80d5a33f9a5dd2276e6d6e451be0a6bb"
+  integrity sha512-duORpUiYrEpzKIop6iNbjnwKLAKnJ47csTyRACyEmWj0QdUrm5aqNJGHSSEQSUAvNW0ojX0dOmK9dZduvkfeXA==
+  dependencies:
+    "@babel/types" "^7.18.6"
+
 "@babel/helper-compilation-targets@^7.19.3":
   version "7.19.3"
   resolved "https://registry.npmjs.org/@babel/helper-compilation-targets/-/helper-compilation-targets-7.19.3.tgz"
@@ -82,7 +89,7 @@
   dependencies:
     "@babel/types" "^7.18.6"
 
-"@babel/helper-module-imports@^7.18.6":
+"@babel/helper-module-imports@^7.16.0", "@babel/helper-module-imports@^7.18.6":
   version "7.18.6"
   resolved "https://registry.npmjs.org/@babel/helper-module-imports/-/helper-module-imports-7.18.6.tgz"
   integrity sha512-0NFvs3VkuSYbFi1x2Vd6tKrywq+z/cLeYC/RJNFrIX/30Bf5aiGYbtvGXolEktzJH8o5E5KJ3tT+nkxuuZFVlA==
@@ -1014,16 +1021,6 @@
   dependencies:
     "@use-gesture/core" "10.2.20"
 
-"@volvo-cars/react-accordion@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@volvo-cars/react-accordion/-/react-accordion-1.8.0.tgz#b2fcd0526d6d369236d6f858fd126c52be4fad55"
-  integrity sha512-vh1asBuUm9qcZE8ih68RapKVo8dBkIg+MTramj4Ef4kWaCoI2zEgwSw+2zgl24tqh9KIzBYIGZrBdkj0eoX1SA==
-  dependencies:
-    "@volvo-cars/react-aria" "^0.3.0"
-    "@volvo-cars/react-layout-utils" "^0.6.0"
-    "@volvo-cars/react-utils" "^1.0.0"
-    nanoid "^3.1.23"
-
 "@volvo-cars/react-aria@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npmjs.org/@volvo-cars/react-aria/-/react-aria-0.3.0.tgz"
@@ -1040,29 +1037,12 @@
 
 "@volvo-cars/react-layout-utils@^0.6.0":
   version "0.6.0"
-  resolved "https://registry.npmjs.org/@volvo-cars/react-layout-utils/-/react-layout-utils-0.6.0.tgz"
+  resolved "https://registry.yarnpkg.com/@volvo-cars/react-layout-utils/-/react-layout-utils-0.6.0.tgz#121d5c6fd4998f6d5c43aa6b125ee6d006bbf704"
   integrity sha512-CnANmKCh6GOlfIixr+iN8SWzBRKEZnS705ktULoqzkfS7haf8gPgT65k9FyUN1IK+nVODTFkqW7RBuH3ilhugg==
   dependencies:
     "@volvo-cars/react-utils" "^1.0.0"
     lodash "^4.17.21"
     use-resize-observer "^9.0.0"
-
-"@volvo-cars/react-local-submenu@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@volvo-cars/react-local-submenu/-/react-local-submenu-0.4.0.tgz#89bc84a3a1708e8ec139aa71ed4adbccb0e236e7"
-  integrity sha512-jG5Ckxf2Pg8wnEf0YpKH4Ew24gynywRKcYCgpPveS2IBW8gmeIAaxwylzyfAGeBr0lsI/4Xh0t7vrQvXsqh0zQ==
-  dependencies:
-    "@volvo-cars/react-accordion" "^1.8.0"
-    "@volvo-cars/react-scroll-utils" "^0.4.0"
-    nanoid "^3.1.23"
-
-"@volvo-cars/react-scroll-utils@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@volvo-cars/react-scroll-utils/-/react-scroll-utils-0.4.0.tgz#12ca94c394a5a23c965117d46fd5808c78ec9005"
-  integrity sha512-De6LRyd5LcQ4qwVEzNxDKeoQdovU/6yyGNasK3/sEgt29X3hAWhg5DOEs3o2Vp2/SKgpxHLM3CuaJCNz7uit/g==
-  dependencies:
-    "@volvo-cars/react-layout-utils" "^0.6.0"
-    "@volvo-cars/react-utils" "^1.0.0"
 
 "@volvo-cars/react-utils@^1.0.0":
   version "1.0.0"
@@ -1242,6 +1222,22 @@ babel-plugin-jest-hoist@^28.1.3:
     "@babel/types" "^7.3.3"
     "@types/babel__core" "^7.1.14"
     "@types/babel__traverse" "^7.0.6"
+
+babel-plugin-styled-components@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-2.0.7.tgz#c81ef34b713f9da2b7d3f5550df0d1e19e798086"
+  integrity sha512-i7YhvPgVqRKfoQ66toiZ06jPNA3p6ierpfUuEWxNF+fV27Uv5gxBkf8KZLHUCc1nFA9j6+80pYoIpqCeyW3/bA==
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.16.0"
+    "@babel/helper-module-imports" "^7.16.0"
+    babel-plugin-syntax-jsx "^6.18.0"
+    lodash "^4.17.11"
+    picomatch "^2.3.0"
+
+babel-plugin-syntax-jsx@^6.18.0:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
+  integrity sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw==
 
 babel-preset-current-node-syntax@^1.0.0:
   version "1.0.1"
@@ -3014,7 +3010,7 @@ lodash.merge@^4.6.2:
   resolved "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
-lodash@^4.17.21:
+lodash@^4.17.11, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -3102,7 +3098,7 @@ ms@^2.1.1:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-nanoid@^3.1.23, nanoid@^3.3.4:
+nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
@@ -3326,7 +3322,7 @@ picocolors@^1.0.0:
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
   integrity sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==
 
-picomatch@^2.0.4, picomatch@^2.2.3, picomatch@^2.3.1:
+picomatch@^2.0.4, picomatch@^2.2.3, picomatch@^2.3.0, picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==

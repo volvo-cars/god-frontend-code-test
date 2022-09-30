@@ -78,30 +78,34 @@ export function Carousel<T extends any>({
           })}
         </div>
         {size.width > breakpoint ? (
-          <>
-            <Flex
-              extend={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                gap: 10,
-                marginTop: 20,
-              }}
-            >
-              <IconButton
-                onClick={() => scrollPrev()}
-                variant="outline"
-                iconName="navigation-chevronback"
-                disabled={!emblaApi?.canScrollPrev()}
-              />
+          data.length > itemsPerSlide ? (
+            <>
+              <Flex
+                extend={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  gap: 10,
+                  marginTop: 20,
+                }}
+              >
+                <IconButton
+                  onClick={() => scrollPrev()}
+                  variant="outline"
+                  iconName="navigation-chevronback"
+                  disabled={!emblaApi?.canScrollPrev()}
+                />
 
-              <IconButton
-                onClick={() => scrollNext()}
-                variant="outline"
-                iconName="navigation-chevronforward"
-                disabled={!emblaApi?.canScrollNext()}
-              />
-            </Flex>
-          </>
+                <IconButton
+                  onClick={() => scrollNext()}
+                  variant="outline"
+                  iconName="navigation-chevronforward"
+                  disabled={!emblaApi?.canScrollNext()}
+                />
+              </Flex>
+            </>
+          ) : (
+            <></>
+          )
         ) : (
           <>
             <Spacer></Spacer>

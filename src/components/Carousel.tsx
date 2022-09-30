@@ -60,7 +60,11 @@ export function Carousel<T extends any>({
         margin: 15,
       }}
     >
-      <div className="embla" ref={emblaRef}>
+      <section
+        className="embla"
+        ref={emblaRef}
+        aria-labelledby="carouselheading"
+      >
         <div className="embla__container">
           {data.map((item: T, index: number) => {
             return (
@@ -132,7 +136,7 @@ export function Carousel<T extends any>({
             </Flex>
           </>
         )}
-      </div>
+      </section>
     </Flex>
   );
 }

@@ -1,1 +1,18 @@
+.embla {
+  overflow: hidden;
+  width: 100%;
+  max-width: 1440px;
+}
 
+.embla__container {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+}
+.embla__slide {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  max-width: 300px;
+}

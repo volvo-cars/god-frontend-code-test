@@ -1,8 +1,9 @@
-import { useSpringCarousel } from "react-spring-carousel";
-import { ReactElement } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { Flex, IconButton } from "vcc-ui";
-import Image from "next/image";
+import { Flex, IconButton, Spacer } from "vcc-ui";
+import styles from "../../styles/Dots.module.css";
+
 interface CarouselProps<T> {
   data: T[];
   children(data: T): ReactElement;
@@ -14,18 +15,48 @@ export function Carousel<T extends any>({
   children,
   itemsPerSlide = 1,
 }: CarouselProps<T>) {
+  const [activeItem, setActiveItem] = useState("");
   const size = useWindowSize();
   const breakpoint = 500;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ containScroll: "trimSnaps" });
 
-  const { carouselFragment, slideToPrevItem, slideToNextItem } =
-    useSpringCarousel({
-      gutter: 24,
-      itemsPerSlide: itemsPerSlide,
-      items: data.map((item: T, index: number) => ({
-        id: index.toString(),
-        renderItem: children(item),
-      })),
-    });
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  );
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  );
+  const scrollTo = useCallback(
+    (index) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.reInit();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    scrollTo(0);
+  }, [emblaApi, data, scrollTo]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setPrevBtnEnabled(emblaApi.canScrollPrev());
+    setNextBtnEnabled(emblaApi.canScrollNext());
+  }, [emblaApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on("select", onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
     <Flex
@@ -34,7 +65,19 @@ export function Carousel<T extends any>({
         flexWrap: "nowrap",
       }}
     >
-      <Flex>{carouselFragment}</Flex>
+      <div className="embla" ref={emblaRef}>
+        <div className="embla__container">
+          {data.map((item: T, index: number) => {
+            return (
+              <div key={index} className="embla__slide">
+                {" "}
+                {children(item)}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {size.width > breakpoint ? (
         <>
           <Flex
@@ -45,32 +88,39 @@ export function Carousel<T extends any>({
             }}
           >
             <IconButton
-              onClick={slideToPrevItem}
+              onClick={() => scrollPrev()}
               variant="outline"
               iconName="navigation-chevronback"
+              disabled={!emblaApi?.canScrollPrev()}
             />
 
             <IconButton
-              onClick={slideToNextItem}
+              onClick={() => scrollNext()}
               variant="outline"
               iconName="navigation-chevronforward"
+              disabled={!emblaApi?.canScrollNext()}
             />
           </Flex>
         </>
       ) : (
         <>
+          <Spacer></Spacer>
           <Flex
             extend={{
               flexDirection: "row",
+              gap: 10,
               justifyContent: "center",
+              alignItems: "center",
+              marginTop: 30,
             }}
           >
             {data.map((item, index) => (
-              <Image
+              <button
                 key={index}
-                src="/images/chevron-circled.svg"
-                width={50}
-                height={50}
+                className={`${styles.dot} ${
+                  index === selectedIndex ? styles.dotActive : ""
+                }`}
+                onClick={() => scrollTo(index)}
               />
             ))}
           </Flex>

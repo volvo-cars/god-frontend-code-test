@@ -1,13 +1,14 @@
-import { Car } from "../../types/Car";
-import { Col, Flex, Link, Row, Spacer, Text } from "vcc-ui";
 import Image from "next/image";
+import { Flex, Link, Row, Text } from "vcc-ui";
+import { Car } from "../../types/Car";
+import styles from "../../styles/CarCard.module.css";
 interface CarItemProps {
   car: Car;
 }
 
 export const CarItem = ({ car }: CarItemProps) => {
   return (
-    <article>
+    <article className={styles.wrapper}>
       <div>
         <Text subStyle="inline-link">
           <b>{car.bodyType}</b>

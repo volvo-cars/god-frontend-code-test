@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dot {
+  border: 1px solid black;
+  background-color: transparent;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+
+.dotActive {
+  background-color: black;
+}

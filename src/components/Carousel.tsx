@@ -61,8 +61,9 @@ export function Carousel<T extends any>({
   return (
     <Flex
       extend={{
-        overflow: "hidden",
         flexWrap: "nowrap",
+        alignItems: "center",
+        margin: 15,
       }}
     >
       <div className="embla" ref={emblaRef}>
@@ -76,56 +77,56 @@ export function Carousel<T extends any>({
             );
           })}
         </div>
-      </div>
-
-      {size.width > breakpoint ? (
-        <>
-          <Flex
-            extend={{
-              flexDirection: "row",
-              alignSelf: "flex-end",
-              gap: 10,
-            }}
-          >
-            <IconButton
-              onClick={() => scrollPrev()}
-              variant="outline"
-              iconName="navigation-chevronback"
-              disabled={!emblaApi?.canScrollPrev()}
-            />
-
-            <IconButton
-              onClick={() => scrollNext()}
-              variant="outline"
-              iconName="navigation-chevronforward"
-              disabled={!emblaApi?.canScrollNext()}
-            />
-          </Flex>
-        </>
-      ) : (
-        <>
-          <Spacer></Spacer>
-          <Flex
-            extend={{
-              flexDirection: "row",
-              gap: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 30,
-            }}
-          >
-            {data.map((item, index) => (
-              <button
-                key={index}
-                className={`${styles.dot} ${
-                  index === selectedIndex ? styles.dotActive : ""
-                }`}
-                onClick={() => scrollTo(index)}
+        {size.width > breakpoint ? (
+          <>
+            <Flex
+              extend={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 10,
+                marginTop: 20,
+              }}
+            >
+              <IconButton
+                onClick={() => scrollPrev()}
+                variant="outline"
+                iconName="navigation-chevronback"
+                disabled={!emblaApi?.canScrollPrev()}
               />
-            ))}
-          </Flex>
-        </>
-      )}
+
+              <IconButton
+                onClick={() => scrollNext()}
+                variant="outline"
+                iconName="navigation-chevronforward"
+                disabled={!emblaApi?.canScrollNext()}
+              />
+            </Flex>
+          </>
+        ) : (
+          <>
+            <Spacer></Spacer>
+            <Flex
+              extend={{
+                flexDirection: "row",
+                gap: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 30,
+              }}
+            >
+              {data.map((item, index) => (
+                <button
+                  key={index}
+                  className={`${styles.dot} ${
+                    index === selectedIndex ? styles.dotActive : ""
+                  }`}
+                  onClick={() => scrollTo(index)}
+                />
+              ))}
+            </Flex>
+          </>
+        )}
+      </div>
     </Flex>
   );
 }

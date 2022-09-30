@@ -9,10 +9,3 @@
   height: 100%;
   gap: 20px;
 }
-.embla__slide {
-  position: relative;
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  max-width: 300px;
-}

@@ -2,13 +2,16 @@ import Image from "next/image";
 import { Flex, Link, Row, Text } from "vcc-ui";
 import { Car } from "../../types/Car";
 import styles from "../../styles/CarCard.module.css";
+import { useWindowSize } from "../hooks/useWindowSize";
 interface CarItemProps {
   car: Car;
 }
 
 export const CarItem = ({ car }: CarItemProps) => {
+  const size = useWindowSize();
+
   return (
-    <article className={styles.wrapper}>
+    <Flex extend={{ minWidth: 300 }}>
       <div>
         <Text subStyle="inline-link">
           <b>{car.bodyType}</b>
@@ -16,7 +19,7 @@ export const CarItem = ({ car }: CarItemProps) => {
       </div>
       <Flex
         extend={{
-          flexDirection: "row",
+          flexDirection: size.width < 500 ? "column" : "row",
           gap: 2,
         }}
       >
@@ -51,6 +54,6 @@ export const CarItem = ({ car }: CarItemProps) => {
           Shop
         </Link>
       </Row>
-    </article>
+    </Flex>
   );
 };

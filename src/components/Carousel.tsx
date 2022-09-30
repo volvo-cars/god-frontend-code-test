@@ -1,8 +1,7 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { ReactElement, useCallback, useEffect, useState } from "react";
+import { Flex, IconButton, View } from "vcc-ui";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { Flex, IconButton, Spacer } from "vcc-ui";
-import styles from "../../styles/Dots.module.css";
 
 interface CarouselProps<T> {
   data: T[];
@@ -15,7 +14,6 @@ export function Carousel<T extends any>({
   children,
   itemsPerSlide = 1,
 }: CarouselProps<T>) {
-  const [activeItem, setActiveItem] = useState("");
   const size = useWindowSize();
   const breakpoint = 500;
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -89,17 +87,21 @@ export function Carousel<T extends any>({
                 }}
               >
                 <IconButton
+                  data-testid={"previous-image-button"}
                   onClick={() => scrollPrev()}
                   variant="outline"
                   iconName="navigation-chevronback"
                   disabled={!emblaApi?.canScrollPrev()}
+                  aria-label={"Previous Image"}
                 />
 
                 <IconButton
+                  data-testid={"next-image-button"}
                   onClick={() => scrollNext()}
                   variant="outline"
                   iconName="navigation-chevronforward"
                   disabled={!emblaApi?.canScrollNext()}
+                  aria-label={"Next Image"}
                 />
               </Flex>
             </>
@@ -108,7 +110,6 @@ export function Carousel<T extends any>({
           )
         ) : (
           <>
-            <Spacer></Spacer>
             <Flex
               extend={{
                 flexDirection: "row",
@@ -119,11 +120,16 @@ export function Carousel<T extends any>({
               }}
             >
               {data.map((item, index) => (
-                <button
+                <View
                   key={index}
-                  className={`${styles.dot} ${
-                    index === selectedIndex ? styles.dotActive : ""
-                  }`}
+                  extend={{
+                    border: "1px solid black",
+                    backgroundColor:
+                      index === selectedIndex ? "black" : "transparent",
+                    borderRadius: "15px",
+                    width: "15px",
+                    height: "15px",
+                  }}
                   onClick={() => scrollTo(index)}
                 />
               ))}

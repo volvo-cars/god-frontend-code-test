@@ -13,7 +13,12 @@ export const CarItem = ({ car }: CarItemProps) => {
   return (
     <Flex extend={{ minWidth: 300 }}>
       <div>
-        <Text subStyle="inline-link">
+        <Text
+          extend={{
+            textTransform: "uppercase",
+          }}
+          subStyle="inline-link"
+        >
           <b>{car.bodyType}</b>
         </Text>
       </div>

@@ -61,7 +61,7 @@ const Home: React.FC<HomePageProps> = (props) => {
           </TabNav>
         </MainPageNav>
         <MainPageContent>
-          <Carousel data={filteredCars} itemsPerSlide={itemsPerSlide}>
+          <Carousel data={filteredCars} itemsPerSlide={4}>
             {(car: Car) => <CarItem car={car} />}
           </Carousel>
         </MainPageContent>

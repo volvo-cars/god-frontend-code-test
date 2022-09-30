@@ -93,6 +93,7 @@ export function Carousel<T extends any>({
                   iconName="navigation-chevronback"
                   disabled={!emblaApi?.canScrollPrev()}
                   aria-label={"Previous Image"}
+                  aria-disabled={!emblaApi?.canScrollPrev()}
                 />
 
                 <IconButton
@@ -102,6 +103,7 @@ export function Carousel<T extends any>({
                   iconName="navigation-chevronforward"
                   disabled={!emblaApi?.canScrollNext()}
                   aria-label={"Next Image"}
+                  aria-disabled={!emblaApi?.canScrollNext()}
                 />
               </Flex>
             </>

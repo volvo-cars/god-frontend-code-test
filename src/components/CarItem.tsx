@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Flex, Link, Row, Text } from "vcc-ui";
 import { Car } from "../../types/Car";
-import styles from "../../styles/CarCard.module.css";
 import { useWindowSize } from "../hooks/useWindowSize";
 interface CarItemProps {
   car: Car;

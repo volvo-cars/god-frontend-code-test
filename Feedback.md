@@ -1,11 +1,5 @@
 Feedback
 
-### my journey
-
-Since I don't have much experience with NextJS, it was a bit tricky getting the getStaticProps correct at first. I learned that I can't use it on \_app, although I'm not certain.
-
-I tried making the Carousel component as abstract as possible. It would be easy making a single CarsCarousel, but then it would be hard to reuse it. I thought about having a simple API for it.
-
 ### vcc-ui documentation website
 
 LocalSubMenu does not show how to import

@@ -17,8 +17,6 @@ export function Carousel<T extends any>({
   const size = useWindowSize();
   const breakpoint = 500;
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
-  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [emblaRef, emblaApi] = useEmblaCarousel({ containScroll: "trimSnaps" });
 
@@ -45,8 +43,6 @@ export function Carousel<T extends any>({
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-    setPrevBtnEnabled(emblaApi.canScrollPrev());
-    setNextBtnEnabled(emblaApi.canScrollNext());
   }, [emblaApi, setSelectedIndex]);
 
   useEffect(() => {
@@ -119,7 +115,7 @@ export function Carousel<T extends any>({
                 marginTop: 30,
               }}
             >
-              {data.map((item, index) => (
+              {data.map((_item, index) => (
                 <View
                   key={index}
                   extend={{

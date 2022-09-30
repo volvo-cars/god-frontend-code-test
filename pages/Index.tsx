@@ -35,8 +35,6 @@ const Home: React.FC<HomePageProps> = (props) => {
     setFilteredCars(cars);
   }, [bodyType, props.cars, getCarByType]);
 
-  const itemsPerSlide = filteredCars.length >= 4 ? 4 : filteredCars.length;
-
   return (
     <React.StrictMode>
       <Head>

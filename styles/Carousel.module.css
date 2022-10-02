@@ -1,0 +1,11 @@
+.embla {
+  overflow: hidden;
+  width: 100%;
+  max-width: 1440px;
+}
+
+.embla__container {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+}

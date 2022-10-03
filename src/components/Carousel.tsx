@@ -2,7 +2,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { Flex, IconButton, View } from "vcc-ui";
 import { useWindowSize } from "../hooks/useWindowSize";
-
+import styles from "../../styles/Carousel.module.css";
 interface CarouselProps<T> {
   data: T[];
   children(data: T): ReactElement;
@@ -61,11 +61,11 @@ export function Carousel<T extends any>({
       }}
     >
       <section
-        className="embla"
+        className={styles.embla}
         ref={emblaRef}
         aria-labelledby="carouselheading"
       >
-        <div className="embla__container">
+        <div className={styles.embla__container}>
           {data.map((item: T, index: number) => {
             return (
               <div key={index} className="embla__slide">

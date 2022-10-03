@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 import { Text, View } from "vcc-ui";
@@ -13,8 +14,6 @@ const Shop = () => {
 
   if (!data) return <div>Car not found...</div>;
 
-  console.log(data);
-
   return (
     <>
       <Head>
@@ -23,6 +22,14 @@ const Shop = () => {
 
       <View>
         <Text>{data.modelName}</Text>
+        <Image
+          src={data.imageUrl}
+          alt={data.modelName}
+          width="50%"
+          height="50%"
+          layout="fill"
+          objectFit="contain"
+        ></Image>
       </View>
     </>
   );

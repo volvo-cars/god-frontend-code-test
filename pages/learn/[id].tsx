@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 import { Text, View } from "vcc-ui";
@@ -16,11 +17,19 @@ const Learn = () => {
   return (
     <>
       <Head>
-        <title>Volvo - Shop - {data.modelName}</title>
+        <title>Volvo - Learn - {data.modelName}</title>
       </Head>
 
       <View>
         <Text>{data.modelName}</Text>
+        <Image
+          src={data.imageUrl}
+          alt={data.modelName}
+          width="50%"
+          height="50%"
+          layout="fill"
+          objectFit="contain"
+        ></Image>
       </View>
     </>
   );

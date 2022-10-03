@@ -6,6 +6,8 @@ const Learn = () => {
   const router = useRouter();
   const { modelName } = router.query;
 
+  //TODO: check if modelName is an actual model. otherwise fallback to not found page
+
   return (
     <>
       <Head>

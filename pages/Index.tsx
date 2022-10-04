@@ -2,6 +2,7 @@ import { NextPageContext } from "next";
 import Head from "next/head";
 import React, { useCallback, useEffect, useState } from "react";
 import { TabNav, TabNavItem } from "vcc-ui";
+import { getAllCars } from "../public/api/cars.js";
 import { CarItem } from "../src/components/CarItem";
 import { Carousel } from "../src/components/Carousel";
 import { MainPage } from "../src/components/MainPage";
@@ -9,7 +10,6 @@ import { MainPageContent } from "../src/components/MainPageContent";
 import { MainPageNav } from "../src/components/MainPageNav";
 import { Car } from "../types/Car";
 import { BODY_TYPES, CarBodyType } from "../types/CarBodyType";
-import { fetcher } from "../utils/fetcher";
 
 interface HomePageProps {
   cars: Car[];
@@ -61,7 +61,7 @@ const Home: React.FC<HomePageProps> = (props) => {
         </MainPageNav>
         <MainPageContent>
           <Carousel data={filteredCars} itemsPerSlide={4}>
-            {(car: Car) => <CarItem car={car} />}
+            {(car) => <CarItem car={car} />}
           </Carousel>
         </MainPageContent>
       </MainPage>
@@ -70,7 +70,7 @@ const Home: React.FC<HomePageProps> = (props) => {
 };
 
 export async function getStaticProps(context: NextPageContext) {
-  const cars = await fetcher(`/api/cars`);
+  const cars = getAllCars();
   return { props: { cars } };
 }
 

@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { Block, Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
-import { CarBlock } from '../../organisms/carBlock'
+import { CAR_BLOCK_WIDTH_DESKTOP, CarBlock } from '../../organisms/carBlock'
 
 type Props = {
   cars: CarType[]
@@ -16,15 +16,14 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
 
   const handleScrollRight = () => {
     const element = carWrapperRef.current
-    const nextRightScroll = window.innerWidth * scrollIndex
-    if (
-      !element ||
-      nextRightScroll !== element.scrollLeft + window.innerWidth
-    ) {
+    const offset = 15
+    const carBlockSpace = CAR_BLOCK_WIDTH_DESKTOP - offset
+    const nextRightScroll = carBlockSpace * scrollIndex
+    if (!element || nextRightScroll !== element.scrollLeft + carBlockSpace) {
       return
     }
     if (nextRightScroll >= element.scrollWidth) {
-      if (element.scrollLeft + window.innerWidth !== element.scrollWidth) {
+      if (cars.length === scrollIndex) {
         element.scrollTo({
           left: element.scrollWidth,
           behavior: 'smooth',
@@ -42,14 +41,12 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
 
   const handleScrollLeft = () => {
     const element = carWrapperRef.current
-    const nextLeftScroll =
-      window.innerWidth * (scrollIndex - 1) - window.innerWidth
+    const offset = 15
+    const carBlockSpace = CAR_BLOCK_WIDTH_DESKTOP - offset
+    const nextLeftScroll = carBlockSpace * (scrollIndex - 1) - carBlockSpace
     if (
       !element ||
-      !(
-        nextLeftScroll >=
-        element.scrollLeft - (nextLeftScroll + window.innerWidth)
-      )
+      !(nextLeftScroll >= element.scrollLeft - (nextLeftScroll + carBlockSpace))
     ) {
       return
     }

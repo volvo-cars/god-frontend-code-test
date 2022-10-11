@@ -6,6 +6,7 @@ import { CarType } from '../../types/cars'
 import { ChevronLink } from '../molecules/chevronLink'
 
 export const CAR_BLOCK_WIDTH_MOBILE = 300
+export const CAR_BLOCK_WIDTH_DESKTOP = 400
 
 type Props = {
   car: CarType
@@ -20,7 +21,7 @@ export const CarBlock = ({
     <Flex
       style={{
         position: 'relative',
-        width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : 400,
+        width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
         height: isMobile ? 300 : 400,
         margin: 18,
       }}

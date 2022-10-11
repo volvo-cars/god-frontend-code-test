@@ -1,8 +1,8 @@
-import axios from 'axios'
 import type { NextPage } from 'next'
 import { useEffect, useMemo, useState } from 'react'
 import { Block, SelectInput } from 'vcc-ui'
 
+import { fetchCars } from '../api/cars'
 import { CarScrollerDesktop } from '../components/screens/carScroller/carScrollerDesktop'
 import { CarScrollerMobile } from '../components/screens/carScroller/carScrollerMobile'
 import { useIsMobile } from '../hooks/useIsMobile'
@@ -17,8 +17,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const handleFetch = async () => {
-      const cars = (await axios<CarType[]>('http://localhost:3000/api/cars'))
-        .data
+      const cars = await fetchCars()
       if (cars.length !== 0) {
         setCars(cars)
         const carBodyTypes = cars.map((car) => car.bodyType)

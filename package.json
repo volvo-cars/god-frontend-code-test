@@ -1,24 +1,24 @@
 {
-  "name": "frontend-code-test",
+  "name": "volvo_codetest",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@types/react": "^17.0.0",
-    "next": "^12.2.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "typescript": "^4.7.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "dependencies": {
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
   "devDependencies": {
-    "@testing-library/react": "^12.1.0",
-    "eslint": "^8.0.0",
-    "eslint-config-next": "^12.0.0",
-    "jest": "^28.0.0"
+    "@types/node": "18.8.4",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.25.0",
+    "eslint-config-next": "12.3.1",
+    "typescript": "4.8.4"
   }
 }

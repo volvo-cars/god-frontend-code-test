@@ -3,7 +3,7 @@ import { Block, Flex, Text } from 'vcc-ui'
 
 import { useIsMobile } from '../../hooks/useIsMobile'
 import { CarType } from '../../types/cars'
-import { ChevronLink } from '../atoms/chevronLink'
+import { ChevronLink } from '../molecules/chevronLink'
 
 export const CAR_BLOCK_WIDTH_MOBILE = 300
 

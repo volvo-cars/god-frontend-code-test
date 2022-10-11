@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import { Block, Flex, Text } from 'vcc-ui'
 
+import { useIsMobile } from '../../hooks/useIsMobile'
 import { CarType } from '../../types/cars'
 import { ChevronLink } from '../atoms/chevronLink'
+
+export const CAR_BLOCK_WIDTH_MOBILE = 300
 
 type Props = {
   car: CarType
@@ -11,8 +14,17 @@ type Props = {
 export const CarBlock = ({
   car: { id, imageUrl, modelName, modelType, bodyType },
 }: Props) => {
+  const { isMobile } = useIsMobile()
+
   return (
-    <Flex style={{ position: 'relative', width: 400, height: 400, margin: 18 }}>
+    <Flex
+      style={{
+        position: 'relative',
+        width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : 400,
+        height: isMobile ? 300 : 400,
+        margin: 18,
+      }}
+    >
       <Text subStyle='inline-link' style={{ textTransform: 'uppercase' }}>
         {bodyType}
       </Text>
@@ -24,8 +36,8 @@ export const CarBlock = ({
       </Block>
       <Image
         src={imageUrl}
-        width={350}
-        height={300}
+        width={isMobile ? 300 : 350}
+        height={isMobile ? 250 : 300}
         layout='fixed'
         alt={`${modelName}-image`}
         style={{ marginTop: 6 }}

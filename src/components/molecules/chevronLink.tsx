@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import { Link } from 'vcc-ui'
+import { Block, Link } from 'vcc-ui'
 
 type Props = {
   children: ReactNode
@@ -16,7 +16,9 @@ export const ChevronLink = ({ children, href, external = false }: Props) => {
   return (
     <Link style={{ display: 'flex', alignItems: 'center' }} {...navigationProp}>
       {children}
-      <Image src='/chevron-small.svg' width={15} height={15} alt='arrow' />
+      <Block style={{ marginLeft: 7, display: 'flex', alignItems: 'center' }}>
+        <Image src='/chevron-small.svg' width={15} height={15} alt='arrow' />
+      </Block>
     </Link>
   )
 }

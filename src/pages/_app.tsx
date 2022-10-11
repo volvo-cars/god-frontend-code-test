@@ -6,7 +6,7 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StyleProvider>
-      <ThemePicker>
+      <ThemePicker variant='light'>
         <Component {...pageProps} />
       </ThemePicker>
     </StyleProvider>

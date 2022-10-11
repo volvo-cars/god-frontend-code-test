@@ -1,7 +1,8 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
-import { Block, Flex } from 'vcc-ui'
+import { Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
+import { IndexBlock } from '../../atoms/indexBlock'
 import { CAR_BLOCK_WIDTH_MOBILE, CarBlock } from '../../organisms/carBlock'
 
 type Props = {
@@ -69,17 +70,9 @@ export const CarScrollerMobile = ({ cars }: Props) => {
         {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
         {Array.from({ length: cars.length }).map((_, index) => {
           return (
-            <Block
+            <IndexBlock
               key={index}
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: 'black',
-                margin: '0 9px',
-                opacity: activeIndex === index ? 1 : 0.2,
-                transition: 'opacity 0.3s',
-              }}
+              isActive={activeIndex === index}
               onClick={() => handleIndexClick(index)}
             />
           )

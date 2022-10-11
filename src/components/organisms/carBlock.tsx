@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Block, Flex, Text } from 'vcc-ui'
 
 import { useIsMobile } from '../../hooks/useIsMobile'
@@ -18,41 +19,48 @@ export const CarBlock = ({
   const { isMobile } = useIsMobile()
 
   return (
-    <Flex
-      style={{
-        position: 'relative',
-        width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
-        height: isMobile ? 300 : 400,
-        margin: 18,
-      }}
-    >
-      <Text subStyle='inline-link' style={{ textTransform: 'uppercase' }}>
-        {bodyType}
-      </Text>
-      <Block style={{ display: 'flex', marginTop: 3, marginBottom: 15 }}>
-        <Text subStyle='emphasis'>{modelName}</Text>
-        <Text subStyle='inline-link' style={{ marginLeft: '4px' }}>
-          {modelType}
-        </Text>
-      </Block>
-      <Image
-        src={imageUrl}
-        width={isMobile ? 300 : 350}
-        height={isMobile ? 250 : 300}
-        layout='fixed'
-        alt={`${modelName}-image`}
-        style={{ marginTop: 6 }}
-      />
+    <Link href={`/learn/${id}`}>
       <Flex
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          marginTop: 15,
+          position: 'relative',
+          width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
+          height: isMobile ? 300 : 400,
+          margin: 18,
+          cursor: 'pointer',
         }}
       >
-        <ChevronLink href={`/learn/${id}`}>Learn</ChevronLink>
-        <ChevronLink href={`/shop/${id}`}>Shop</ChevronLink>
+        <Text
+          variant='bates'
+          subStyle='inline-link'
+          style={{ textTransform: 'uppercase', fontWeight: 500 }}
+        >
+          {bodyType}
+        </Text>
+        <Block style={{ display: 'flex', marginTop: 3, marginBottom: 15 }}>
+          <Text subStyle='emphasis'>{modelName}</Text>
+          <Text subStyle='inline-link' style={{ marginLeft: '4px' }}>
+            {modelType}
+          </Text>
+        </Block>
+        <Image
+          src={imageUrl}
+          width={isMobile ? 300 : 350}
+          height={isMobile ? 250 : 300}
+          layout='fixed'
+          alt={`${modelName}-image`}
+          style={{ marginTop: 6 }}
+        />
+        <Flex
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            marginTop: 15,
+          }}
+        >
+          <ChevronLink href={`/learn/${id}`}>Learn</ChevronLink>
+          <ChevronLink href={`/shop/${id}`}>Shop</ChevronLink>
+        </Flex>
       </Flex>
-    </Flex>
+    </Link>
   )
 }

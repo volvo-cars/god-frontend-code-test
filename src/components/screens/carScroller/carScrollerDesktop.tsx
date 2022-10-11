@@ -75,6 +75,8 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           flexDirection: 'row',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
+          margin: '0 auto',
+          width: 385 * Math.floor(window.innerWidth / 385),
         }}
       >
         {cars.map((car) => (

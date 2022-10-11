@@ -16,13 +16,7 @@ export const ChevronLink = ({ children, href, external = false }: Props) => {
   return (
     <Link style={{ display: 'flex', alignItems: 'center' }} {...navigationProp}>
       {children}
-      <Image
-        src='/chevron-small.svg'
-        width={15}
-        height={15}
-        style={{ marginLeft: 6 }}
-        alt='arrow'
-      />
+      <Image src='/chevron-small.svg' width={15} height={15} alt='arrow' />
     </Link>
   )
 }

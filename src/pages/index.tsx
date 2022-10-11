@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useEffect, useMemo, useState } from 'react'
-import { Block, SelectInput } from 'vcc-ui'
+import { Block, SelectInput, Spinner } from 'vcc-ui'
 
 import { fetchCars } from '../api/cars'
 import { CarScrollerDesktop } from '../components/screens/carScroller/carScrollerDesktop'
@@ -39,6 +39,16 @@ const Home: NextPage = () => {
     return cars.filter((car) => car.bodyType === filter)
   }, [cars, filter])
 
+  const CarScroller = useMemo(
+    () =>
+      isMobile ? (
+        <CarScrollerMobile cars={filteredCars} />
+      ) : (
+        <CarScrollerDesktop cars={filteredCars} />
+      ),
+    [isMobile, filteredCars]
+  )
+
   return (
     <Block
       style={{
@@ -49,22 +59,20 @@ const Home: NextPage = () => {
         height: '100vh',
       }}
     >
-      <SelectInput
-        label={'Body Types'}
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      >
-        {availableBodyTypes.map((bodyType) => (
-          <option key={bodyType} value={bodyType}>
-            {bodyType.toUpperCase()}
-          </option>
-        ))}
-      </SelectInput>
-      {isMobile ? (
-        <CarScrollerMobile cars={filteredCars} />
-      ) : (
-        <CarScrollerDesktop cars={filteredCars} />
-      )}
+      {availableBodyTypes.length !== 0 ? (
+        <SelectInput
+          label={'Body Types'}
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          {availableBodyTypes.map((bodyType) => (
+            <option key={bodyType} value={bodyType}>
+              {bodyType.toUpperCase()}
+            </option>
+          ))}
+        </SelectInput>
+      ) : null}
+      {cars.length !== 0 ? CarScroller : <Spinner />}
     </Block>
   )
 }

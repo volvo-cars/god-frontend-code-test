@@ -1,0 +1,58 @@
+{
+  "0": {
+    "id": "xc90-recharge",
+    "modelName": "XC90 Recharge",
+    "bodyType": "suv",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/xc90_recharge.jpg"
+  },
+  "1": {
+    "id": "xc60-recharge",
+    "modelName": "XC60 Recharge",
+    "bodyType": "suv",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/xc60_recharge.jpg"
+  },
+  "2": {
+    "id": "xc40-recharge",
+    "modelName": "XC40 Recharge",
+    "bodyType": "suv",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/xc40_recharge.jpg"
+  },
+  "3": {
+    "id": "xc40-bev",
+    "modelName": "XC40 Recharge",
+    "bodyType": "suv",
+    "modelType": "pure electric",
+    "imageUrl": "/images/xc40_bev.jpg"
+  },
+  "4": {
+    "id": "v90-recharge",
+    "modelName": "V90 Recharge",
+    "bodyType": "estate",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/v90_recharge.jpg"
+  },
+  "5": {
+    "id": "v60-recharge",
+    "modelName": "V60 Recharge",
+    "bodyType": "estate",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/v60_recharge.jpg"
+  },
+  "6": {
+    "id": "s90-recharge",
+    "modelName": "S90 Recharge",
+    "bodyType": "sedan",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/s90_recharge.jpg"
+  },
+  "7": {
+    "id": "s60-recharge",
+    "modelName": "S60 Recharge",
+    "bodyType": "sedan",
+    "modelType": "plug-in hybrid",
+    "imageUrl": "/images/s60_recharge.jpg"
+  }
+}

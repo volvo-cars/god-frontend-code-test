@@ -1,30 +1,15 @@
 import type { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import { useMemo, useState } from 'react'
 import { Block, SelectInput, Spinner } from 'vcc-ui'
 
 import { fetchCars } from '../api/cars'
+import {
+  CarScrollerDesktopLazy,
+  CarScrollerMobileLazy,
+} from '../components/screens/carScroller'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { CarType } from '../types/cars'
 
-const CarScrollerDesktop = dynamic(
-  () =>
-    import('../components/screens/carScroller/carScrollerDesktop').then(
-      (mod) => mod.CarScrollerDesktop
-    ),
-  {
-    ssr: false,
-  }
-)
-const CarScrollerMobile = dynamic(
-  () =>
-    import('../components/screens/carScroller/carScrollerMobile').then(
-      (mod) => mod.CarScrollerMobile
-    ),
-  {
-    ssr: false,
-  }
-)
 const DEFAULT_FILTER = 'all'
 
 type Props = {
@@ -52,9 +37,9 @@ const Home: NextPage<Props> = ({ cars, availableFilters }) => {
   const CarScroller = useMemo(
     () =>
       isMobile ? (
-        <CarScrollerMobile cars={filteredCars} />
+        <CarScrollerMobileLazy cars={filteredCars} />
       ) : (
-        <CarScrollerDesktop cars={filteredCars} />
+        <CarScrollerDesktopLazy cars={filteredCars} />
       ),
     [isMobile, filteredCars]
   )

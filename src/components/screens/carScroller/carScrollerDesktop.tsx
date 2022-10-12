@@ -16,7 +16,11 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
 
   const carWrapperRef = useRef<HTMLDivElement>(null)
 
-  const carsInViewport = useMemo(() => Math.floor(window.innerWidth / 385), [])
+  const carBlockSpace = 418
+  const carsInViewport = useMemo(
+    () => Math.floor(window.innerWidth / carBlockSpace),
+    []
+  )
 
   const handleScrollRight = () => {
     const element = carWrapperRef.current
@@ -132,7 +136,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           margin: '0 auto',
-          width: 385 * carsInViewport,
+          width: carBlockSpace * carsInViewport,
         }}
         onMouseDown={onTouchStart}
         onMouseMove={onTouchMove}

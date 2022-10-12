@@ -74,6 +74,7 @@ const Home: NextPage<Props> = ({ cars, availableFilters }) => {
           label={'Body Types'}
           value={activeFilter}
           onChange={(e) => setActiveFilter(e.target.value)}
+          style={{ marginBottom: 15 }}
         >
           {availableBodyTypes.map((bodyType) => (
             <option key={bodyType} value={bodyType}>

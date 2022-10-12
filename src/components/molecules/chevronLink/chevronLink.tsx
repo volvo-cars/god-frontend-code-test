@@ -2,7 +2,8 @@ import { useRouter } from 'next/router'
 import { AnchorHTMLAttributes, ReactNode } from 'react'
 import { Link } from 'vcc-ui'
 
-import { ChevronSmall } from '../../svg/chevron-small'
+import { ChevronSmall } from '../../../svg/chevron-small'
+import { chevronLinkStyles } from './chevronLink.styles'
 
 type Props = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode
@@ -20,19 +21,9 @@ export const ChevronLink = ({
 
   const navigationProp = external ? { href } : { onClick: () => push(href) }
   return (
-    <Link
-      style={{ display: 'flex', alignItems: 'center' }}
-      {...rest}
-      {...navigationProp}
-    >
+    <Link style={chevronLinkStyles.wrapper} {...rest} {...navigationProp}>
       {children}
-      <ChevronSmall
-        style={{
-          marginLeft: 7,
-          width: 11,
-          height: 11,
-        }}
-      />
+      <ChevronSmall style={chevronLinkStyles.chevron} />
     </Link>
   )
 }

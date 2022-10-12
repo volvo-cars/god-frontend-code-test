@@ -5,7 +5,7 @@ import { Block, Flex, Text } from 'vcc-ui'
 
 import { useIsMobile } from '../../../hooks/useIsMobile'
 import { CarType } from '../../../types/cars'
-import { ChevronLink } from '../../molecules/chevronLink'
+import { ChevronLink } from '../../molecules/chevronLink/chevronLink'
 import { carBlockStyles } from './carBlock.styles'
 
 export const CAR_BLOCK_WIDTH_DESKTOP = 350

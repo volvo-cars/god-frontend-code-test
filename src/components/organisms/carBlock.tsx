@@ -8,8 +8,8 @@ import { useIsMobile } from '../../hooks/useIsMobile'
 import { CarType } from '../../types/cars'
 import { ChevronLink } from '../molecules/chevronLink'
 
+export const CAR_BLOCK_WIDTH_DESKTOP = 350
 export const CAR_BLOCK_WIDTH_MOBILE = 300
-export const CAR_BLOCK_WIDTH_DESKTOP = 400
 
 type Props = {
   car: CarType
@@ -28,6 +28,8 @@ export const CarBlock = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         tabIndex={0}
+        className='car-block'
+        id={id}
       >
         <Flex
           style={{
@@ -84,7 +86,7 @@ export const CarBlock = ({
           </Block>
           <Image
             src={imageUrl}
-            width={isMobile ? 300 : 350}
+            width={isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP}
             height={isMobile ? 250 : 300}
             layout='fixed'
             alt={`${modelName}-image`}

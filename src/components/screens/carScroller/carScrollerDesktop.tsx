@@ -1,5 +1,12 @@
 import Image from 'next/image'
-import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Block, Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
@@ -16,7 +23,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
 
   const carWrapperRef = useRef<HTMLDivElement>(null)
 
-  const carBlockSpace = 418
+  const carBlockSpace = 386
   const carsInViewport = useMemo(
     () => Math.floor(window.innerWidth / carBlockSpace),
     []
@@ -91,11 +98,10 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
-  // the required distance between touchStart and touchEnd to be detected as a swipe
   const minSwipeDistance = 50
 
   const onTouchStart = (e: MouseEvent<HTMLDivElement>) => {
-    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchEnd(null)
     setTouchStart(e.clientX)
   }
 
@@ -115,6 +121,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
       handleScrollLeft()
     }
   }
+
   useEffect(() => {
     const element = carWrapperRef.current
     if (!element) {
@@ -126,6 +133,35 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     setDisableScrollLeft(true)
     element.scrollTo({ left: 0, behavior: 'smooth' })
   }, [cars, carsInViewport])
+
+  const detectTabKey = useCallback(
+    (e: KeyboardEvent) => {
+      const element = carWrapperRef.current
+      if (!element) {
+        return
+      }
+      if (e.key == 'Tab') {
+        if (document.activeElement?.className === 'car-block') {
+          const index = cars.findIndex(
+            (car) => car.id === document.activeElement?.id
+          )
+          const nextScrollIndex = index + 2 - carsInViewport
+          setScrollIndex(nextScrollIndex < 1 ? 1 : nextScrollIndex)
+          document.activeElement?.scrollIntoView({ behavior: 'smooth' })
+        }
+        if (element.scrollLeft > 0) {
+          setDisableScrollLeft(false)
+        }
+      }
+    },
+    [cars, carsInViewport]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keyup', detectTabKey)
+
+    return () => document.removeEventListener('keyup', detectTabKey)
+  }, [detectTabKey])
 
   return (
     <>
@@ -158,6 +194,8 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           }}
           alt='scroll-left'
           onClick={disableScrollLeft ? undefined : handleScrollLeft}
+          tabIndex={0}
+          role='button'
         />
         <Image
           src='/chevron-circled.svg'
@@ -166,6 +204,8 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           style={{ cursor: 'pointer', opacity: disableScrollRight ? 0.6 : 1 }}
           alt='scroll-right'
           onClick={disableScrollRight ? undefined : handleScrollRight}
+          tabIndex={0}
+          role='button'
         />
       </Block>
     </>

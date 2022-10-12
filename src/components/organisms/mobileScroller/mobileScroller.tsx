@@ -1,4 +1,11 @@
-import { Children, ReactNode, TouchEvent, useRef, useState } from 'react'
+import {
+  Children,
+  ReactNode,
+  TouchEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { Flex } from 'vcc-ui'
 
 import { IndexBlock } from '../../atoms/indexBlock'
@@ -56,6 +63,15 @@ export const MobileScroller = ({ children, itemBlockSpace }: Props) => {
       handleIndexClick(activeIndex)
     }
   }
+
+  useEffect(() => {
+    const element = wrapperRef.current
+    if (!element) {
+      return
+    }
+    setActiveIndex(0)
+    element.scrollTo({ left: 0, behavior: 'smooth' })
+  }, [children])
 
   return (
     <>

@@ -1,7 +1,8 @@
 import { Children, ReactNode, TouchEvent, useRef, useState } from 'react'
 import { Flex } from 'vcc-ui'
 
-import { IndexBlock } from '../atoms/indexBlock'
+import { IndexBlock } from '../../atoms/indexBlock'
+import { mobileScrollerStyles } from './mobileScroller.styles'
 
 type Props = {
   children: ReactNode
@@ -60,23 +61,14 @@ export const MobileScroller = ({ children, itemBlockSpace }: Props) => {
     <>
       <Flex
         ref={wrapperRef}
-        style={{
-          flexDirection: 'row',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-        }}
+        style={mobileScrollerStyles.wrapper}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
         {children}
       </Flex>
-      <Flex
-        style={{
-          margin: '0 auto',
-          flexDirection: 'row',
-        }}
-      >
+      <Flex style={mobileScrollerStyles.indexBlockWrapper}>
         {Array.from({ length: Children.count(children) }).map((_, index) => {
           return (
             <IndexBlock

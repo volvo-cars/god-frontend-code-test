@@ -3,7 +3,7 @@ import {
   CAR_BLOCK_WIDTH_MOBILE,
   CarBlock,
 } from '../../organisms/carBlock/carBlock'
-import { MobileScroller } from '../../organisms/mobileScroller'
+import { MobileScroller } from '../../organisms/mobileScroller/mobileScroller'
 
 type Props = {
   cars: CarType[]

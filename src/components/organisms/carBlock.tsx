@@ -37,9 +37,19 @@ export const CarBlock = ({
         >
           {bodyType}
         </Text>
-        <Block style={{ display: 'flex', marginTop: 3, marginBottom: 15 }}>
+        <Block
+          style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            marginTop: 3,
+            marginBottom: 15,
+          }}
+        >
           <Text subStyle='emphasis'>{modelName}</Text>
-          <Text subStyle='inline-link' style={{ marginLeft: '4px' }}>
+          <Text
+            subStyle='inline-link'
+            style={{ marginLeft: isMobile ? 0 : '4px' }}
+          >
             {modelType}
           </Text>
         </Block>

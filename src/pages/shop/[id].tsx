@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { Block, Button, Text } from 'vcc-ui'
 
 import { fetchCar, fetchCarIds } from '../../api/cars'
+import { shopStyles } from '../../pageStyles/shop.styles'
 import { CarType } from '../../types/cars'
 
 type Props = {
@@ -12,7 +13,7 @@ const ShopCar = ({ car }: Props) => {
   const { push } = useRouter()
 
   return (
-    <Block style={{ textAlign: 'center' }}>
+    <Block style={shopStyles.wrapper}>
       <Button onClick={() => push('/')}>Back</Button>
       <Text subStyle='emphasis'>SHOP</Text>
       <Text>{car.modelName}</Text>

@@ -8,6 +8,7 @@ import {
   CarScrollerMobileLazy,
 } from '../components/screens/carScroller'
 import { useIsMobile } from '../hooks/useIsMobile'
+import { indexStyles } from '../pageStyles/index.styles'
 import { CarType } from '../types/cars'
 
 const DEFAULT_FILTER = 'all'
@@ -45,21 +46,13 @@ const Home: NextPage<Props> = ({ cars, availableFilters }) => {
   )
 
   return (
-    <Block
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100vh',
-      }}
-    >
+    <Block style={indexStyles.wrapper}>
       {availableBodyTypes.length !== 0 ? (
         <SelectInput
           label={'Body Types'}
           value={activeFilter}
           onChange={(e) => setActiveFilter(e.target.value)}
-          style={{ marginBottom: 15 }}
+          style={indexStyles.filterInput}
         >
           {availableBodyTypes.map((bodyType) => (
             <option key={bodyType} value={bodyType}>

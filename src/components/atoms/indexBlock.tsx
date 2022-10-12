@@ -1,4 +1,7 @@
+import { useMemo } from 'react'
 import { Block } from 'vcc-ui'
+
+import { indexBlockStyles } from './indexBlock.styles'
 
 type Props = {
   isActive: boolean
@@ -6,18 +9,6 @@ type Props = {
 }
 
 export const IndexBlock = ({ isActive, onClick }: Props) => {
-  return (
-    <Block
-      style={{
-        width: 10,
-        height: 10,
-        borderRadius: '50%',
-        backgroundColor: 'black',
-        margin: '0 9px',
-        opacity: isActive ? 1 : 0.2,
-        transition: 'opacity 0.3s',
-      }}
-      onClick={onClick}
-    />
-  )
+  const styles = useMemo(() => indexBlockStyles({ isActive }), [isActive])
+  return <Block style={styles.block} onClick={onClick} />
 }

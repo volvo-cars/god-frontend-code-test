@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import {
+import React, {
   MouseEvent,
   useCallback,
   useEffect,
@@ -28,6 +28,18 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     () => Math.floor(window.innerWidth / carBlockSpace),
     []
   )
+
+  const handleKeyScrollRight = (e: React.KeyboardEvent<HTMLImageElement>) => {
+    if (e.key === ' ') {
+      handleScrollRight()
+    }
+  }
+
+  const handleKeyScrollLeft = (e: React.KeyboardEvent<HTMLImageElement>) => {
+    if (e.key === ' ') {
+      handleScrollLeft()
+    }
+  }
 
   const handleScrollRight = () => {
     const element = carWrapperRef.current
@@ -141,6 +153,10 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
         return
       }
       if (e.key == 'Tab') {
+        if (element.scrollLeft > 0) {
+          setDisableScrollLeft(false)
+        }
+
         if (document.activeElement?.className === 'car-block') {
           const index = cars.findIndex(
             (car) => car.id === document.activeElement?.id
@@ -148,9 +164,25 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           const nextScrollIndex = index + 2 - carsInViewport
           setScrollIndex(nextScrollIndex < 1 ? 1 : nextScrollIndex)
           document.activeElement?.scrollIntoView({ behavior: 'smooth' })
+          if (index + 1 === cars.length) {
+            setDisableScrollRight(true)
+          }
         }
-        if (element.scrollLeft > 0) {
-          setDisableScrollLeft(false)
+      }
+      if (e.shiftKey && e.key === 'Tab') {
+        if (document.activeElement?.className === 'car-block') {
+          const index = cars.findIndex(
+            (car) => car.id === document.activeElement?.id
+          )
+          const nextScrollIndex = index + 2 - carsInViewport
+          setScrollIndex(nextScrollIndex < 1 ? 1 : nextScrollIndex)
+          document.activeElement?.scrollIntoView({ behavior: 'smooth' })
+          if (index + 1 === 1) {
+            setDisableScrollLeft(true)
+          }
+          if (index + 1 < cars.length) {
+            setDisableScrollRight(false)
+          }
         }
       }
     },
@@ -194,6 +226,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           }}
           alt='scroll-left'
           onClick={disableScrollLeft ? undefined : handleScrollLeft}
+          onKeyDown={disableScrollLeft ? undefined : handleKeyScrollLeft}
           tabIndex={0}
           role='button'
         />
@@ -204,6 +237,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           style={{ cursor: 'pointer', opacity: disableScrollRight ? 0.6 : 1 }}
           alt='scroll-right'
           onClick={disableScrollRight ? undefined : handleScrollRight}
+          onKeyDown={disableScrollRight ? undefined : handleKeyScrollRight}
           tabIndex={0}
           role='button'
         />

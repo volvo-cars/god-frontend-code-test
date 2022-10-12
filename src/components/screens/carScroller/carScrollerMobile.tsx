@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { TouchEvent, useRef, useState } from 'react'
 import { Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
@@ -37,12 +37,12 @@ export const CarScrollerMobile = ({ cars }: Props) => {
 
   const minSwipeDistance = 0
 
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null)
     setTouchStart(e.targetTouches[0].clientX)
   }
 
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) =>
+  const onTouchMove = (e: TouchEvent<HTMLDivElement>) =>
     setTouchEnd(e.targetTouches[0].clientX)
 
   const onTouchEnd = () => {

@@ -24,7 +24,7 @@ export const CarBlock = ({
         style={{
           position: 'relative',
           width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
-          height: isMobile ? 300 : 400,
+          height: isMobile ? 350 : 400,
           margin: 18,
           cursor: 'pointer',
           userSelect: 'none',

@@ -11,6 +11,8 @@ type Props = {
 
 export const CarScrollerDesktop = ({ cars }: Props) => {
   const [scrollIndex, setScrollIndex] = useState(1)
+  const [disableScrollLeft, setDisableScrollLeft] = useState(true)
+  const [disableScrollRight, setDisableScrollRight] = useState(false)
 
   const carWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -22,14 +24,18 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     if (!element || nextRightScroll !== element.scrollLeft + carBlockSpace) {
       return
     }
-    if (nextRightScroll >= element.scrollWidth) {
-      if (cars.length === scrollIndex) {
+    if (disableScrollLeft) {
+      setDisableScrollLeft(false)
+    }
+    if (nextRightScroll >= element.scrollWidth - window.innerWidth) {
+      if (cars.length - Math.floor(window.innerWidth / 385) === scrollIndex) {
         element.scrollTo({
           left: element.scrollWidth,
           behavior: 'smooth',
         })
         setScrollIndex((oldIndex) => oldIndex + 1)
       }
+      setDisableScrollRight(true)
       return
     }
     element.scrollTo({
@@ -51,6 +57,9 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     ) {
       return
     }
+    if (disableScrollRight) {
+      setDisableScrollRight(false)
+    }
     if (nextLeftScroll <= 0) {
       if (element.scrollLeft !== 0) {
         element.scrollTo({
@@ -59,6 +68,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
         })
         setScrollIndex((oldIndex) => oldIndex - 1)
       }
+      setDisableScrollLeft(true)
       return
     }
     element.scrollTo({
@@ -120,16 +130,21 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           src='/chevron-circled.svg'
           width={40}
           height={40}
-          style={{ transform: 'rotate(180deg)' }}
+          style={{
+            transform: 'rotate(180deg)',
+            cursor: 'pointer',
+            opacity: disableScrollLeft ? 0.6 : 1,
+          }}
           alt='scroll-left'
-          onClick={handleScrollLeft}
+          onClick={disableScrollLeft ? undefined : handleScrollLeft}
         />
         <Image
           src='/chevron-circled.svg'
           width={40}
           height={40}
+          style={{ cursor: 'pointer', opacity: disableScrollRight ? 0.6 : 1 }}
           alt='scroll-right'
-          onClick={handleScrollRight}
+          onClick={disableScrollRight ? undefined : handleScrollRight}
         />
       </Block>
     </>

@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { Block, Flex, Text } from 'vcc-ui'
 
+import { COLORS } from '../../constants/colors'
 import { useIsMobile } from '../../hooks/useIsMobile'
 import { CarType } from '../../types/cars'
 import { ChevronLink } from '../molecules/chevronLink'
@@ -16,63 +18,91 @@ type Props = {
 export const CarBlock = ({
   car: { id, imageUrl, modelName, modelType, bodyType },
 }: Props) => {
+  const [isHovered, setIsHovered] = useState(false)
+
   const { isMobile } = useIsMobile()
 
   return (
     <Link href={`/learn/${id}`}>
-      <Flex
-        style={{
-          position: 'relative',
-          width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
-          height: isMobile ? 350 : 400,
-          margin: 18,
-          cursor: 'pointer',
-          userSelect: 'none',
-        }}
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <Text
-          variant='bates'
-          subStyle='inline-link'
-          style={{ textTransform: 'uppercase', fontWeight: 500 }}
-        >
-          {bodyType}
-        </Text>
-        <Block
-          style={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            marginTop: 3,
-            marginBottom: 15,
-          }}
-        >
-          <Text subStyle='emphasis'>{modelName}</Text>
-          <Text
-            subStyle='inline-link'
-            style={{ marginLeft: isMobile ? 0 : '4px' }}
-          >
-            {modelType}
-          </Text>
-        </Block>
-        <Image
-          src={imageUrl}
-          width={isMobile ? 300 : 350}
-          height={isMobile ? 250 : 300}
-          layout='fixed'
-          alt={`${modelName}-image`}
-          style={{ marginTop: 6 }}
-          draggable='false'
-        />
         <Flex
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            marginTop: 15,
+            position: 'relative',
+            width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
+            height: isMobile ? 350 : 400,
+            margin: 18,
+            cursor: 'pointer',
+            userSelect: 'none',
           }}
         >
-          <ChevronLink href={`/learn/${id}`}>Learn</ChevronLink>
-          <ChevronLink href={`/shop/${id}`}>Shop</ChevronLink>
+          <Text
+            variant='bates'
+            subStyle='inline-link'
+            style={{
+              textTransform: 'uppercase',
+              fontWeight: 500,
+              color: isHovered ? COLORS.volvoBlue : 'inherit',
+              transition: 'color 0.3s',
+            }}
+          >
+            {bodyType}
+          </Text>
+          <Block
+            style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              marginTop: 3,
+              marginBottom: 15,
+            }}
+          >
+            <Text
+              subStyle='emphasis'
+              style={{
+                color: isHovered ? COLORS.volvoBlue : 'inherit',
+                transition: 'color 0.3s',
+              }}
+            >
+              {modelName}
+            </Text>
+            <Text
+              subStyle='inline-link'
+              style={{
+                marginLeft: isMobile ? 0 : '4px',
+                color: isHovered ? COLORS.volvoBlue : 'inherit',
+                transition: 'color 0.3s',
+              }}
+            >
+              {modelType}
+            </Text>
+          </Block>
+          <Image
+            src={imageUrl}
+            width={isMobile ? 300 : 350}
+            height={isMobile ? 250 : 300}
+            layout='fixed'
+            alt={`${modelName}-image`}
+            style={{
+              marginTop: 6,
+              transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+              transition: 'transform 0.3s',
+            }}
+            draggable='false'
+          />
+          <Flex
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              marginTop: 15,
+            }}
+          >
+            <ChevronLink href={`/learn/${id}`}>Learn</ChevronLink>
+            <ChevronLink href={`/shop/${id}`}>Shop</ChevronLink>
+          </Flex>
         </Flex>
-      </Flex>
+      </div>
     </Link>
   )
 }

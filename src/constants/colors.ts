@@ -1,3 +1,3 @@
 export const COLORS = {
-  volvoBlue: 'steelblue',
+  volvoBlue: '#1c6bba',
 }

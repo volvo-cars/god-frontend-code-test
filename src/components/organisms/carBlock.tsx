@@ -27,6 +27,7 @@ export const CarBlock = ({
           height: isMobile ? 300 : 400,
           margin: 18,
           cursor: 'pointer',
+          userSelect: 'none',
         }}
       >
         <Text
@@ -49,6 +50,7 @@ export const CarBlock = ({
           layout='fixed'
           alt={`${modelName}-image`}
           style={{ marginTop: 6 }}
+          draggable='false'
         />
         <Flex
           style={{

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { MouseEvent, useRef, useState } from 'react'
 import { Block, Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
@@ -36,6 +36,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
       left: nextRightScroll,
       behavior: 'smooth',
     })
+
     setScrollIndex((oldIndex) => oldIndex + 1)
   }
 
@@ -67,6 +68,34 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     setScrollIndex((oldIndex) => oldIndex - 1)
   }
 
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+
+  // the required distance between touchStart and touchEnd to be detected as a swipe
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: MouseEvent<HTMLDivElement>) => {
+    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.clientX)
+  }
+
+  const onTouchMove = (e: MouseEvent<HTMLDivElement>) => {
+    setTouchEnd(e.clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    // @todo better logic for detecting longer or faster swipe distances
+    if (isLeftSwipe) {
+      handleScrollRight()
+    } else if (isRightSwipe) {
+      handleScrollLeft()
+    }
+  }
+
   return (
     <>
       <Flex
@@ -78,6 +107,9 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           margin: '0 auto',
           width: 385 * Math.floor(window.innerWidth / 385),
         }}
+        onMouseDown={onTouchStart}
+        onMouseMove={onTouchMove}
+        onMouseUp={onTouchEnd}
       >
         {cars.map((car) => (
           <CarBlock key={car.id} car={car} />

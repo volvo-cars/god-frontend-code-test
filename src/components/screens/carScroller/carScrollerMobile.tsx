@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
@@ -15,7 +15,12 @@ export const CarScrollerMobile = ({ cars }: Props) => {
   const carWrapperRef = useRef<HTMLDivElement>(null)
 
   const handleIndexClick = (index: number) => {
+    if (index >= cars.length || index < 0) {
+      return
+    }
+
     setActiveIndex(index)
+
     const element = carWrapperRef.current
     if (!element) {
       return
@@ -27,25 +32,32 @@ export const CarScrollerMobile = ({ cars }: Props) => {
     })
   }
 
-  const updateIndex = useCallback(() => {
-    const element = carWrapperRef.current
-    if (!element) {
-      return
-    }
-    const currentIndex = Math.floor(element.scrollLeft / CAR_BLOCK_WIDTH_MOBILE)
-    if (currentIndex !== activeIndex) {
-      setActiveIndex(currentIndex)
-    }
-  }, [activeIndex])
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
-  useLayoutEffect(() => {
-    const element = carWrapperRef.current
-    if (!element) {
-      return
+  const minSwipeDistance = 0
+
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) =>
+    setTouchEnd(e.targetTouches[0].clientX)
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    // @todo better logic for detecting longer or faster swipe distances
+    if (isLeftSwipe || isRightSwipe) {
+      handleIndexClick(isLeftSwipe ? activeIndex + 1 : activeIndex - 1)
+    } else {
+      handleIndexClick(activeIndex)
     }
-    element.addEventListener('scroll', updateIndex)
-    return () => element.removeEventListener('scroll', updateIndex)
-  }, [updateIndex])
+  }
 
   return (
     <>
@@ -56,6 +68,9 @@ export const CarScrollerMobile = ({ cars }: Props) => {
           overflow: 'auto',
           whiteSpace: 'nowrap',
         }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         {cars.map((car) => (
           <CarBlock key={car.id} car={car} />

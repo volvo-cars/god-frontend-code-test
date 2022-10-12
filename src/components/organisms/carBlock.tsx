@@ -90,6 +90,7 @@ export const CarBlock = ({
             height={isMobile ? 250 : 300}
             layout='fixed'
             alt={`${modelName}-image`}
+            priority
             style={{
               marginTop: 6,
               transform: isHovered ? 'scale(1.1)' : 'scale(1)',

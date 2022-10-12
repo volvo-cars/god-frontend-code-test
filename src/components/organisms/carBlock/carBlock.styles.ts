@@ -4,8 +4,8 @@ import { COLORS } from '../../../constants/colors'
 import { CAR_BLOCK_WIDTH_DESKTOP, CAR_BLOCK_WIDTH_MOBILE } from './carBlock'
 
 export const carBlockStyles: (values: {
-  isMobile?: boolean
-  isHovered?: boolean
+  isMobile: boolean
+  isHovered: boolean
 }) => { [key: string]: CSSProperties } = ({ isMobile, isHovered }) => ({
   wrapper: {
     position: 'relative',

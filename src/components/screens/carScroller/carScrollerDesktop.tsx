@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CarType } from '../../../types/cars'
 import { CarBlock } from '../../organisms/carBlock/carBlock'
-import { DesktopScroller } from '../../organisms/desktopScroller'
+import { DesktopScroller } from '../../organisms/desktopScroller/desktopScroller'
 
 type Props = {
   cars: CarType[]

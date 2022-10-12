@@ -11,6 +11,8 @@ import React, {
 } from 'react'
 import { Block, Flex } from 'vcc-ui'
 
+import { desktopScrollerStyles } from './desktopScroller.styles'
+
 type Props = {
   children: ReactNode
   itemBlockSpace: number
@@ -180,33 +182,34 @@ export const DesktopScroller = ({ children, itemBlockSpace }: Props) => {
     return () => document.removeEventListener('keyup', detectTabKey)
   }, [detectTabKey])
 
+  const styles = useMemo(
+    () =>
+      desktopScrollerStyles({
+        itemsInViewport,
+        itemBlockSpace,
+        disableScrollLeft,
+        disableScrollRight,
+      }),
+    [disableScrollLeft, disableScrollRight, itemBlockSpace, itemsInViewport]
+  )
+
   return (
     <Block style={{ position: 'relative' }}>
       <Flex
         ref={wrapperRef}
-        style={{
-          flexDirection: 'row',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          margin: '0 auto',
-          width: itemBlockSpace * itemsInViewport,
-        }}
+        style={styles.wrapper}
         onMouseDown={onTouchStart}
         onMouseMove={onTouchMove}
         onMouseUp={onTouchEnd}
       >
         {children}
       </Flex>
-      <Block style={{ position: 'absolute', bottom: 20, right: 20 }}>
+      <Block style={styles.chevronWrapper}>
         <Image
           src='/chevron-circled.svg'
           width={40}
           height={40}
-          style={{
-            transform: 'rotate(180deg)',
-            cursor: 'pointer',
-            opacity: disableScrollLeft ? 0.6 : 1,
-          }}
+          style={styles.chevronLeft}
           alt='scroll-left'
           onClick={disableScrollLeft ? undefined : handleScrollLeft}
           onKeyDown={disableScrollLeft ? undefined : handleKeyScrollLeft}
@@ -217,7 +220,7 @@ export const DesktopScroller = ({ children, itemBlockSpace }: Props) => {
           src='/chevron-circled.svg'
           width={40}
           height={40}
-          style={{ cursor: 'pointer', opacity: disableScrollRight ? 0.6 : 1 }}
+          style={styles.chevronRight}
           alt='scroll-right'
           onClick={disableScrollRight ? undefined : handleScrollRight}
           onKeyDown={disableScrollRight ? undefined : handleKeyScrollRight}

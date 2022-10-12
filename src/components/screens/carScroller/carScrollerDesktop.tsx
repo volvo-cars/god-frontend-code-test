@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { MouseEvent, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { Block, Flex } from 'vcc-ui'
 
 import { CarType } from '../../../types/cars'
@@ -16,6 +16,8 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
 
   const carWrapperRef = useRef<HTMLDivElement>(null)
 
+  const carsInViewport = useMemo(() => Math.floor(window.innerWidth / 385), [])
+
   const handleScrollRight = () => {
     const element = carWrapperRef.current
     const offset = 15
@@ -28,7 +30,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
       setDisableScrollLeft(false)
     }
     if (nextRightScroll >= element.scrollWidth - window.innerWidth) {
-      if (cars.length - Math.floor(window.innerWidth / 385) === scrollIndex) {
+      if (cars.length - carsInViewport === scrollIndex) {
         element.scrollTo({
           left: element.scrollWidth,
           behavior: 'smooth',
@@ -53,7 +55,11 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
     const nextLeftScroll = carBlockSpace * (scrollIndex - 1) - carBlockSpace
     if (
       !element ||
-      !(nextLeftScroll >= element.scrollLeft - (nextLeftScroll + carBlockSpace))
+      (!(
+        nextLeftScroll >=
+        element.scrollLeft - (nextLeftScroll + carBlockSpace)
+      ) &&
+        scrollIndex === 1)
     ) {
       return
     }
@@ -105,6 +111,17 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
       handleScrollLeft()
     }
   }
+  useEffect(() => {
+    const element = carWrapperRef.current
+    if (!element) {
+      return
+    }
+    const allCarsVisible = carsInViewport >= cars.length
+    setScrollIndex(1)
+    setDisableScrollRight(allCarsVisible)
+    setDisableScrollLeft(true)
+    element.scrollTo({ left: 0, behavior: 'smooth' })
+  }, [cars, carsInViewport])
 
   return (
     <>
@@ -115,7 +132,7 @@ export const CarScrollerDesktop = ({ cars }: Props) => {
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           margin: '0 auto',
-          width: 385 * Math.floor(window.innerWidth / 385),
+          width: 385 * carsInViewport,
         }}
         onMouseDown={onTouchStart}
         onMouseMove={onTouchMove}

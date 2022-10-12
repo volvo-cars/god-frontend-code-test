@@ -65,7 +65,7 @@ export const CarScrollerMobile = ({ cars }: Props) => {
         ref={carWrapperRef}
         style={{
           flexDirection: 'row',
-          overflow: 'auto',
+          overflow: 'hidden',
           whiteSpace: 'nowrap',
         }}
         onTouchStart={onTouchStart}

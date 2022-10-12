@@ -27,6 +27,7 @@ export const CarBlock = ({
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        tabIndex={0}
       >
         <Flex
           style={{
@@ -41,6 +42,7 @@ export const CarBlock = ({
           <Text
             variant='bates'
             subStyle='inline-link'
+            tabIndex={-1}
             style={{
               textTransform: 'uppercase',
               fontWeight: 500,
@@ -60,6 +62,7 @@ export const CarBlock = ({
           >
             <Text
               subStyle='emphasis'
+              tabIndex={-1}
               style={{
                 color: isHovered ? COLORS.volvoBlue : 'inherit',
                 transition: 'color 0.3s',
@@ -69,6 +72,7 @@ export const CarBlock = ({
             </Text>
             <Text
               subStyle='inline-link'
+              tabIndex={-1}
               style={{
                 marginLeft: isMobile ? 0 : '4px',
                 color: isHovered ? COLORS.volvoBlue : 'inherit',
@@ -98,8 +102,12 @@ export const CarBlock = ({
               marginTop: 15,
             }}
           >
-            <ChevronLink href={`/learn/${id}`}>Learn</ChevronLink>
-            <ChevronLink href={`/shop/${id}`}>Shop</ChevronLink>
+            <ChevronLink tabIndex={0} href={`/learn/${id}`}>
+              Learn
+            </ChevronLink>
+            <ChevronLink tabIndex={0} href={`/shop/${id}`}>
+              Shop
+            </ChevronLink>
           </Flex>
         </Flex>
       </div>

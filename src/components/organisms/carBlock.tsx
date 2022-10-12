@@ -23,14 +23,14 @@ export const CarBlock = ({
   const { isMobile } = useIsMobile()
 
   return (
-    <Link href={`/learn/${id}`}>
-      <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        tabIndex={0}
-        className='car-block'
-        id={id}
-      >
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      tabIndex={0}
+      className='car-block'
+      id={id}
+    >
+      <Link href={`/learn/${id}`}>
         <Flex
           style={{
             position: 'relative',
@@ -112,7 +112,7 @@ export const CarBlock = ({
             </ChevronLink>
           </Flex>
         </Flex>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }

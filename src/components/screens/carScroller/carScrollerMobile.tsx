@@ -1,5 +1,8 @@
 import { CarType } from '../../../types/cars'
-import { CAR_BLOCK_WIDTH_MOBILE, CarBlock } from '../../organisms/carBlock'
+import {
+  CAR_BLOCK_WIDTH_MOBILE,
+  CarBlock,
+} from '../../organisms/carBlock/carBlock'
 import { MobileScroller } from '../../organisms/mobileScroller'
 
 type Props = {

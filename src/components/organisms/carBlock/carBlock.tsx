@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Block, Flex, Text } from 'vcc-ui'
 
-import { COLORS } from '../../constants/colors'
-import { useIsMobile } from '../../hooks/useIsMobile'
-import { CarType } from '../../types/cars'
-import { ChevronLink } from '../molecules/chevronLink'
+import { useIsMobile } from '../../../hooks/useIsMobile'
+import { CarType } from '../../../types/cars'
+import { ChevronLink } from '../../molecules/chevronLink'
+import { carBlockStyles } from './carBlock.styles'
 
 export const CAR_BLOCK_WIDTH_DESKTOP = 350
 export const CAR_BLOCK_WIDTH_MOBILE = 300
@@ -22,6 +22,11 @@ export const CarBlock = ({
 
   const { isMobile } = useIsMobile()
 
+  const styles = useMemo(
+    () => carBlockStyles({ isHovered, isMobile }),
+    [isHovered, isMobile]
+  )
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
@@ -31,55 +36,27 @@ export const CarBlock = ({
       id={id}
     >
       <Link href={`/learn/${id}`}>
-        <Flex
-          style={{
-            position: 'relative',
-            width: isMobile ? CAR_BLOCK_WIDTH_MOBILE : CAR_BLOCK_WIDTH_DESKTOP,
-            height: isMobile ? 350 : 400,
-            margin: 18,
-            cursor: 'pointer',
-            userSelect: 'none',
-          }}
-        >
+        <Flex style={styles.wrapper}>
           <Text
             variant='bates'
             subStyle='inline-link'
             tabIndex={-1}
-            style={{
-              textTransform: 'uppercase',
-              fontWeight: 500,
-              color: isHovered ? COLORS.volvoBlue : 'inherit',
-              transition: 'color 0.3s',
-            }}
+            style={styles.bodyTypeText}
           >
             {bodyType}
           </Text>
-          <Block
-            style={{
-              display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              marginTop: 3,
-              marginBottom: 15,
-            }}
-          >
+          <Block style={styles.modelTextWrapper}>
             <Text
               subStyle='emphasis'
               tabIndex={-1}
-              style={{
-                color: isHovered ? COLORS.volvoBlue : 'inherit',
-                transition: 'color 0.3s',
-              }}
+              style={styles.modelNameText}
             >
               {modelName}
             </Text>
             <Text
               subStyle='inline-link'
               tabIndex={-1}
-              style={{
-                marginLeft: isMobile ? 0 : '4px',
-                color: isHovered ? COLORS.volvoBlue : 'inherit',
-                transition: 'color 0.3s',
-              }}
+              style={styles.modelTypeText}
             >
               {modelType}
             </Text>
@@ -91,20 +68,10 @@ export const CarBlock = ({
             layout='fixed'
             alt={`${modelName}-image`}
             priority
-            style={{
-              marginTop: 6,
-              transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-              transition: 'transform 0.3s',
-            }}
+            style={styles.carImage}
             draggable='false'
           />
-          <Flex
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              marginTop: 15,
-            }}
-          >
+          <Flex style={styles.chevronWrapper}>
             <ChevronLink tabIndex={0} href={`/learn/${id}`}>
               Learn
             </ChevronLink>

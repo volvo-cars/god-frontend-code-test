@@ -44,3 +44,21 @@ Two extra SVG icons are also provided by our designer which are stored under `do
 
 - If you use our design system component library, [VCC-UI](https://vcc-ui.vercel.app/)
 - If you add a filter bar on the top to filter cars by `bodyType`
+
+## Dev Setup
+
+## Install dependencies via:
+```
+yarn install
+```
+
+## Running cypress
+```
+yarn dev-cypress
+```
+
+**NOTE:** Component have Husky set up on pre-push to ensure that changes done 
+won't break existing or future tests.
+
+**NOTE:** An NPM Package named 'volvocars' was created to share eslint config between applications.
+More can be found here [Github](https://github.com/Sifaldin/volvo-eslint-config) + [NPM](https://www.npmjs.com/package/eslint-config-volvocars)

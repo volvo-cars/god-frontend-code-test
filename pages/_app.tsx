@@ -1,6 +1,8 @@
-import { HelloWorld } from "../src/components/HelloWorld";
-import "../public/css/styles.css";
-import React from "react";
+import '../public/css/styles.css';
+
+import React from 'react';
+
+import { HelloWorld } from '../src/components/HelloWorld';
 
 function HomePage() {
   return (

@@ -4,22 +4,46 @@
   "private": true,
   "dependencies": {
     "@types/react": "^17.0.0",
-    "husky": "^8.0.3",
     "next": "^12.2.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "typescript": "^4.7.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn pre-push"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "check-types": "tsc",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --ignore-path .gitignore --fix .",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "pipeline:test": "yarn jest --passWithNoTests && yarn check-types",
+    "cypress:open": "cypress open",
+    "cypress:headless": "cypress run",
+    "pre-push": "yarn build && yarn lint && yarn start & yarn pipeline:test && yarn cypress:headless",
+    "dev-cypress": "yarn dev & yarn cypress:open"
   },
   "devDependencies": {
     "@testing-library/react": "^12.1.0",
-    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "cypress": "^12.5.1",
+    "eslint": "^8.4.0",
     "eslint-config-next": "^12.0.0",
-    "jest": "^28.0.0"
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-volvocars": "^0.0.6",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^8.0.3",
+    "jest": "^28.0.0",
+    "prettier": "^2.5.1"
   }
 }

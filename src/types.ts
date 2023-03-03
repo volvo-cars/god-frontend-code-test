@@ -6,3 +6,9 @@ export type Car = {
   imageUrl: string;
 }
 
+export type Format = 'mobile' | 'tablet' | 'desktop';
+
+export type SiteSettings = {
+  format: Format
+  visibleCarouselItems: number;
+}

@@ -1,0 +1,19 @@
+/* Hide scrollbar for IE, Edge and Firefox */
+.horizontalScroll {
+  overflow: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  // margin: 3rem 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.horizontalScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.inner {
+  display: flex;
+  white-space: nowrap;
+  transition: transform 0.3s ease-in-out;
+  flex-direction: row;
+}

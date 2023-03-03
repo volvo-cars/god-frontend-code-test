@@ -1,0 +1,28 @@
+$gap: 24px;
+$desktop_width: 100% / 4;
+$tablet_width: 100% / 2;
+$mobile_width: 100% / 1.3;
+
+.block {
+  min-width: calc($desktop_width - $gap);
+  margin: 0px $gap / 2;
+}
+
+.block img {
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .block {
+    min-width: calc($tablet_width - $gap);
+  }
+}
+@media screen and (max-width: 480px) {
+  .block {
+    min-width: calc($mobile_width - $gap);
+  }
+
+  .block > p > span {
+    display: block;
+  }
+}

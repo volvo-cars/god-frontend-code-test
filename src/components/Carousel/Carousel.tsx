@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Flex, IconButton } from 'vcc-ui';
 import useSwipeDistance from '../../hooks/useSwipe';
+import IndicatorDot from '../IndicatorDot/IndicatorDot';
 import styles from './Carousel.module.scss';
 
 type CarouselProps = {
@@ -33,8 +34,6 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     setIndex(index + 1);
   };
 
-  console.log({ index, lastIndex, vis: props.visibleItems });
-
   const { handleTouchEnd, handleTouchMove, handleTouchStart } =
     useSwipeDistance<HTMLDivElement>({
       threshold: 150,
@@ -63,6 +62,20 @@ const Carousel: React.FC<CarouselProps> = (props) => {
           {props.items}
         </div>
       </div>
+      {props.showDots && (
+        <Flex
+          extend={{ flexDirection: 'row', justifyContent: 'center', gap: 8 }}
+        >
+          {Array.from(props.items).map((_, i) => (
+            <IndicatorDot
+              index={i}
+              active={i === index}
+              key={`indicator-dot-${i}`}
+              setIndex={setIndex}
+            />
+          ))}
+        </Flex>
+      )}
       {props.showArrows && (
         <Flex
           extend={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 16 }}

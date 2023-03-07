@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { Text } from 'vcc-ui';
 import CarBlock from '../components/CarBlock/CarBlock';
 import Carousel from '../components/Carousel/Carousel';
@@ -11,10 +11,8 @@ type HomePageProps = {
   cars: Car[];
 };
 
-export const getServerSideProps: GetServerSideProps<
-  HomePageProps
-> = async () => {
-  const cars = await getCars();
+export const getStaticProps: GetStaticProps<HomePageProps> = () => {
+  const cars = getCars();
 
   return { props: { cars } };
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Flex, IconButton, Text } from 'vcc-ui';
 import CarDetails from '../../components/CarDetails/CarDetails';
@@ -36,6 +37,9 @@ const Learn: NextPage<LearnPageProps> = (props) => {
 
   return (
     <div className="wrapper">
+      <Head>
+        <title>Learn | {props.car.modelName}</title>
+      </Head>
       <Flex extend={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
         <IconButton
           onClick={() => router.back()}

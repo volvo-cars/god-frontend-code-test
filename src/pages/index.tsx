@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import { Text } from 'vcc-ui';
 import CarBlock from '../components/CarBlock/CarBlock';
 import Carousel from '../components/Carousel/Carousel';
@@ -36,6 +37,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   return (
     <div className="wrapper">
+      <Head>
+        <title>Volvo Cars</title>
+      </Head>
       <Text variant="peary">Volvo Cars</Text>
       <Filter
         types={allTypes}

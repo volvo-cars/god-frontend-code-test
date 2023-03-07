@@ -1,0 +1,29 @@
+$aspect-ratio: 800 / 600;
+
+.container {
+  margin: 2rem 0;
+}
+
+.cell {
+  width: calc(50% - 16px);
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.image {
+  max-width: 100%;
+  aspect-ratio: $aspect-ratio;
+}
+
+@media screen and (max-width: 480px) {
+  .cell {
+    width: 100%;
+  }
+}

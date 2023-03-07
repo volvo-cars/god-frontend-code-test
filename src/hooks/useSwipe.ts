@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SWIPE_SPEED_MULTIPLIER = 2;
+const SWIPE_SPEED_MULTIPLIER = 1;
 
 type useSwipeProps = {
   /**

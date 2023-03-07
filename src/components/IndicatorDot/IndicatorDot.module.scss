@@ -1,14 +1,22 @@
 $size: 12px;
 
 .indicatorDot {
+  border: 0;
+  font-size: 0;
   width: $size;
   height: $size;
   background-color: #e1e1e1;
-  border-radius: 50%;
-  border: none;
+  border-radius: 100%;
   transition: background-color 0.3s ease;
 }
 
 .active {
   background-color: #000;
+}
+
+@media screen and (max-width: 480px) {
+  .indicatorDot {
+    width: $size * 1.5;
+    height: $size * 1.5;
+  }
 }

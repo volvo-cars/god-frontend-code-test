@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { Flex, IconButton } from 'vcc-ui';
-import useSwipeDistance from '../../hooks/useSwipe';
+import useSwipe from '../../hooks/useSwipe';
 import IndicatorDot from '../IndicatorDot/IndicatorDot';
 import styles from './Carousel.module.scss';
 
@@ -46,8 +46,8 @@ const Carousel: React.FC<CarouselProps> = (props) => {
   };
 
   const { handleTouchEnd, handleTouchMove, handleTouchStart } =
-    useSwipeDistance<HTMLDivElement>({
-      threshold: 150,
+    useSwipe<HTMLDivElement>({
+      threshold: 75,
       onSwipeRight: prevSlide,
       onSwipeLeft: nextSlide,
       onMove: setMove,
@@ -57,6 +57,8 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     const percent = index * (100 / props.visibleItems);
     return `translateX(calc(-${percent}% + ${move}px))`;
   }, [index, move, props.visibleItems]);
+
+  console.log(translateX);
 
   return (
     <>

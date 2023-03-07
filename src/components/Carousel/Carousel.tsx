@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Flex, IconButton } from 'vcc-ui';
 import useSwipeDistance from '../../hooks/useSwipe';
 import IndicatorDot from '../IndicatorDot/IndicatorDot';
@@ -12,16 +12,27 @@ type CarouselProps = {
 };
 
 const Carousel: React.FC<CarouselProps> = (props) => {
+  const prevLastIndex = React.useRef<number>(0);
   const [index, setIndex] = React.useState(0);
   const [move, setMove] = React.useState(0);
 
   const lastIndex = useMemo(
-    () => props.items.length - props.visibleItems,
-    [props.items, props.visibleItems]
+    () => Math.max(0, props.items.length - props.visibleItems),
+    [props.items.length, props.visibleItems]
   );
 
+  /**
+   * If the length of items has changed make sure the index is not out of bounds
+   */
+  useEffect(() => {
+    if (lastIndex < prevLastIndex.current) {
+      setIndex(Math.round(lastIndex));
+    }
+    prevLastIndex.current = lastIndex;
+  }, [lastIndex]);
+
   const prevSlide = () => {
-    if (index === 0) {
+    if (index <= 0) {
       return;
     }
     setIndex(index - 1);
@@ -85,7 +96,7 @@ const Carousel: React.FC<CarouselProps> = (props) => {
             aria-label="Previous car"
             iconName="navigation-chevronback"
             variant="outline"
-            disabled={index === 0}
+            disabled={index <= 0}
           />
           <IconButton
             onClick={nextSlide}

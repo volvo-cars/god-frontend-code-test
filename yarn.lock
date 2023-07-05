@@ -861,6 +861,11 @@
     "@typescript-eslint/types" "5.33.1"
     "eslint-visitor-keys" "^3.3.0"
 
+"@volvo-cars/css@^0.31.1":
+  "integrity" "sha512-+xJdjz0gfrgU4J2u3zzTr5fECEHpcZIzv0Z4Sh0eFOLz7GkdGIUomIhBdjkeKVj7R4YQizZs/B3uaicCHXiccg=="
+  "resolved" "https://registry.npmjs.org/@volvo-cars/css/-/css-0.31.1.tgz"
+  "version" "0.31.1"
+
 "@volvo-cars/react-aria@^0.3.2":
   "integrity" "sha512-Wf9akSer+kQXdnek/GOCXy8xnwf2R8yfXR6K8gePx4gviVQiJ71LoMa8zhN6wsZAMqQf1s4g4nXhO1yAoEsEhw=="
   "resolved" "https://registry.npmjs.org/@volvo-cars/react-aria/-/react-aria-0.3.2.tgz"

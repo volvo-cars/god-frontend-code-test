@@ -29,7 +29,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <h1>Latest Recharge Cars</h1>
+      <h2 className="some-heading">Latest Recharge Cars</h2>
 
       {cars.map((car) => (
         <div key={car.id} className="car-card">

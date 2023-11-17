@@ -1,4 +1,7 @@
 import { ReactNode } from 'react'
+import '@volvo-cars/css/font-face.css'
+import '@volvo-cars/css/tokens.css'
+import '@volvo-cars/css/styles_all-media.css'
 
 interface IRootLayout {
     children: ReactNode
@@ -7,7 +10,7 @@ interface IRootLayout {
 const RootLayout = ({ children }: IRootLayout) => {
     return (
         <html lang='en'>
-            <body>
+            <body className='volvo_v0'>
                 {children}
             </body>
         </html>

@@ -1,0 +1,22 @@
+.card-container {
+    min-width: 800px;
+    max-width: 800px;
+}
+
+.card-image {
+    height: auto;
+}
+
+@media (max-width: 64rem) {
+    .card-container {
+        min-width: 30rem;
+        max-width: 30rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    .card-container {
+        min-width: 20rem;
+        max-width: 20rem;
+    }
+}

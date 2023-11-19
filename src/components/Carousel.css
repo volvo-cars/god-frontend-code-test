@@ -1,0 +1,20 @@
+@import '@volvo-cars/css/breakpoints.css';
+
+.scroll-button-icon {
+    height: 6rem;
+    width: 6rem;
+}
+
+@media (max-width: 64rem) {
+    .scroll-button-icon {
+        min-width: 4rem;
+        max-width: 4rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    .scroll-button-icon {
+        min-width: 2rem;
+        max-width: 2rem;
+    }
+}

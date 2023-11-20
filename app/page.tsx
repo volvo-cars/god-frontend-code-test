@@ -1,4 +1,4 @@
-import Carousel from '../src/components/Carousel'
+import HomePageContainer from '../src/components/HomePageContainer'
 
 const getCars: () => Promise<ICar[]> = async () => {
     const res: Response = await fetch(process.env.DATA_URL + '/api/cars.json')
@@ -16,9 +16,7 @@ const HomePage = async () => {
     const cars = await getCars()
 
     return (
-        <>
-            <Carousel cars={cars} />
-        </>
+        <HomePageContainer cars={cars} />
     )
 }
 

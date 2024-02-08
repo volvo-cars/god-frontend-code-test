@@ -1,20 +1,17 @@
 .card {
-  display: block;
-  width: 25rem;
+  display: inline-block;
+  width: 15em;
   aspect-ratio: 2 / 2.5;
   padding: 1rem;
   scroll-snap-align: start;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: auto;
   @media (max-width: 479px) {
-    width: 18rem;
+    width: 15em;
   }
 }
 
 .inline-text {
   display: flex;
-}
-
-.image {
-  /* object-fit: cover; */
-  /* width: 100%; */
-  
 }

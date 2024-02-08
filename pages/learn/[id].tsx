@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Car } from "../../src/models/car";
 import { Text } from "vcc-ui";
+import Head from "next/head";
 const Learn = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -23,15 +24,20 @@ const Learn = () => {
       });
   });
   return (
-    <hgroup>
-      <Text variant="hillary" subStyle="emphasis">
-        Learn more about {car?.modelName}
-      </Text>
-      <Text variant="hillary">
-        {" "}
-        all good with {car?.modelName} and {car?.modelName}{" "}
-      </Text>
-    </hgroup>
+    <>
+      <Head>
+        <title>LEARN {car?.modelName}</title>
+      </Head>
+      <hgroup>
+        <Text variant="hillary" subStyle="emphasis">
+          Learn more about {car?.modelName}
+        </Text>
+        <Text variant="hillary">
+          {" "}
+          all good with {car?.modelName} and {car?.modelName}{" "}
+        </Text>
+      </hgroup>
+    </>
   );
 };
 

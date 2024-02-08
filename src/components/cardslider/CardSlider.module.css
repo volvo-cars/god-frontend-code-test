@@ -1,6 +1,7 @@
 .sliderContainer {
   display: flex;
   flex-flow: column;
+  width: 100%;
 }
 .slider {
   display: inline-flex;
@@ -12,6 +13,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   flex-shrink: 0;
+
 }
 
 .slider::-webkit-scrollbar {

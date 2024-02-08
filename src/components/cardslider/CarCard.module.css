@@ -1,0 +1,20 @@
+.card {
+  display: block;
+  width: 25rem;
+  aspect-ratio: 2 / 2.5;
+  padding: 1rem;
+  scroll-snap-align: start;
+  @media (max-width: 479px) {
+    width: 18rem;
+  }
+}
+
+.inline-text {
+  display: flex;
+}
+
+.image {
+  /* object-fit: cover; */
+  /* width: 100%; */
+  
+}

@@ -1,13 +1,33 @@
-import { HelloWorld } from "../src/components/HelloWorld";
+import { Block, Logo, StyleProvider, ThemePicker, View } from "vcc-ui";
 import "../public/css/styles.css";
-import React from "react";
+import type { AppProps } from "next/app";
 
-function HomePage() {
+import React, { StrictMode } from "react";
+import reportAccessibility from "../src/util/reportAccessibility";
+
+function App({ Component, pageProps }: AppProps) {
   return (
-    <React.StrictMode>
-      <HelloWorld />
-    </React.StrictMode>
+    <>
+      <StyleProvider>
+        <ThemePicker variant="light">
+          <StrictMode>
+            <Block
+              extend={{
+                padding: 20,
+              }}
+            >
+              <View padding={6}>
+                <Logo height={32} />
+              </View>
+
+              <Component {...pageProps} />
+            </Block>
+          </StrictMode>
+        </ThemePicker>
+      </StyleProvider>
+    </>
   );
 }
 
-export default HomePage;
+reportAccessibility(React);
+export default App;

@@ -1,0 +1,34 @@
+.sliderContainer {
+  display: flex;
+  flex-flow: column;
+}
+.slider {
+  display: inline-flex;
+  flex: 10;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.buttons {
+  flex: 1;
+  display: flex;
+  padding: 10px;
+  gap: 5px;
+}
+
+.justifyLeft {
+  justify-content: flex-end;
+}
+
+.justifyCenter {
+  justify-content: center;
+}

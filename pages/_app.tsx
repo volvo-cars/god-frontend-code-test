@@ -16,11 +16,14 @@ function App({ Component, pageProps }: AppProps) {
                 padding: 20,
               }}
             >
-              <View padding={6}>
-                <Logo height={32} />
-              </View>
-
-              <Component {...pageProps} />
+              <div role="banner">
+                <View padding={6}>
+                  <Logo height={32} />
+                </View>
+              </div>
+              <div role="main">
+                <Component {...pageProps} />
+              </div>
             </Block>
           </StrictMode>
         </ThemePicker>

@@ -13,7 +13,6 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   flex-shrink: 0;
-
 }
 
 .slider::-webkit-scrollbar {
@@ -25,6 +24,23 @@
   display: flex;
   padding: 10px;
   gap: 5px;
+  justify-content: flex-end;
+
+  @media (max-width: 779px) {
+    justify-content: center;
+  }
+}
+
+.slide {
+  @media (max-width: 779px) {
+    display: none;
+  }
+}
+.dots {
+  display: none;
+  @media (max-width: 779px) {
+    display: block;
+  }
 }
 
 .justifyLeft {

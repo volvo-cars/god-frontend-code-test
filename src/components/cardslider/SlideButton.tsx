@@ -1,11 +1,14 @@
-import { Icon, IconButton } from "vcc-ui/dist/components"
+import React from "react";
+import { IconButton } from "vcc-ui/dist/components"
 
-export type SlideButtonProps = {
+type SlideButtonProps = {
     isDisabled: boolean;
     iconName: 'navigation-chevronforward' | 'navigation-chevronback';
     areaLabel?: string;
+    className?: string;
     onClick: () => void;
 }
+
 
 const SlideButton = (props: SlideButtonProps) => {
     return (

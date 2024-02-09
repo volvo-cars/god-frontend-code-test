@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 const Learn = () => {
   return (
-    <Link href="/">
+    <Link href="/" role="heading" aria-level={1}>
       GO HOME
     </Link>
   );

@@ -4,37 +4,36 @@ import { Car } from "../../src/models/car";
 import { Text } from "vcc-ui";
 import Head from "next/head";
 const Shop = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useRouter().query;
   const [car, setCar] = useState<Car>();
 
-  const fetchCar = async () => {
-    const res = await fetch(`/api/cars?id=${id}`);
-    const data = await res.json();
-    return data;
-  };
-
   React.useEffect(() => {
+    const fetchCar = async () => {
+      const res = await fetch(`/api/cars?id=${id}`);
+      const data = await res.json();
+      return data;
+    };
+  
     fetchCar()
       .catch(console.error)
       .then((cars) => {
-        if (cars[0]) {
-          setCar(cars[0]);
+        if (cars?.at(0)) {
+          setCar(cars?.at(0));
         }
       });
-  });
+  }, [id]);
   return (
     <>
       <Head>
-        <title>LEARN {car?.modelName}</title>
+        <title>Volvo | SHOP {car?.modelName}</title>
       </Head>
-      <hgroup>
+      <hgroup role="heading" aria-level={1}>
         <Text variant="hillary" subStyle="emphasis">
           BUY ALL GOOD {car?.modelName}
         </Text>
         <Text variant="hillary">
           {" "}
-          all good with {car?.modelName} and {car?.modelName}{" "}
+          all good with {car?.modelType} and {car?.bodyType}{" "}
         </Text>
       </hgroup>
     </>
